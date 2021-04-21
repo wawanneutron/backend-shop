@@ -13,4 +13,14 @@ class Invoice extends Model
         'invoice', 'customer_id', 'courier', 'service', 'cost_courier', 'weight',
         'name', 'phone', 'province', 'city', 'address', 'status', 'snap_token', 'grand_total'
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

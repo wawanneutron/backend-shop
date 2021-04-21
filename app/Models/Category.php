@@ -17,4 +17,9 @@ class Category extends Model
     {
         return asset('storage/categories/' . $image);
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

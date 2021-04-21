@@ -18,4 +18,14 @@ class Customer extends Authenticatable
         'password',
         'remember_token'
     ];
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }
