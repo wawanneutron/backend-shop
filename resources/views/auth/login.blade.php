@@ -44,7 +44,7 @@
                                     </div>    
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">LOGIN</button>
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase">Login</button>
                             <hr>
             
                             <a href="/forgot-password">Lupa Password ?</a>

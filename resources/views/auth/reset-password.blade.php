@@ -1,5 +1,5 @@
 @extends('layouts.auth', [
-    'title' => 'Forgot Password'
+    'title' => 'Update Password'
 ])
 
 @section('content')
@@ -16,12 +16,13 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <h5 class="text-center text-gray-900 mb-3">RESET PASSWORD</h5>
-                        <form action="{{ route('password.email') }}" method="post">
+                        <h5 class="text-center text-gray-900 mb-3">UPDATE PASSWORD</h5>
+                        <form action="{{ route('password.update') }}" method="post">
                             @csrf
+                            <input type="hidden" name="token" value="{{ $request->route('token') }}">
                             <div class="form-group">
                                 <label class=" font-weight-bold text-uppercase">Email Address</label>
-                                <input 
+                                 <input 
                                     type="email" 
                                     name="email" 
                                     id="email" 
@@ -36,7 +37,27 @@
                                         </div>
                                     @enderror
                             </div>
-                            <button type="submit" class=" btn btn-danger mt-4 btn-block text-uppercase">Send password reset link</button>
+                            <div class="form-group">
+                                <label class=" font-weight-bold text-uppercase">Password</label>
+                                 <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="password" 
+                                    class=" form-control @error('password') is-invalid @enderror" 
+                                    autocomplete="new-password"
+                                    autofocus
+                                    placeholder="Masukan password baru">
+                                    @error('password')
+                                        <div class="alert alert-danger mt-2">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class=" font-weight-bold text-uppercase">Konfirmasi Password</label>
+                                <input type="password" name="password_confirmation" id="password-confirm" class=" form-control" placeholder="Konfirmasi password baru">
+                            </div>
+                            <button type="submit" class=" btn btn-primary mt-4 btn-block text-uppercase">Update Password</button>
                         </form>
                    </div>
                </div>
