@@ -7,7 +7,7 @@
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
-            <div class="col-md-4">
+            <div class=" col-md-6 col-lg-4">
                 <div class="img-logo text-center mt-5">
                     <img src="{{ asset('assets/img/company.png') }}"
                         style="width: 80px;">
