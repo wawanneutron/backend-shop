@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <title>{{ $title ?? config('app.name') }} - Admin</title>
 
-   @include('includes.dashboard-style')
+   @include('includes.admin-style')
 </head>
 
 <body style="background-color: #e2e8f0;">
@@ -16,6 +16,6 @@
     @yield('content')
 
   {{-- script --}}
-   @include('includes.dashboard-script')
+   @include('includes.admin-script')
 </body>
 </html>
