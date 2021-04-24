@@ -40,11 +40,11 @@
                                         <tr>
                                             <td>{{ ++$no + ($categories->currentPage()-1) * $categories->perPage() }}</td>
                                             <td>
-                                                <img src="{{ $category->image }}" style="width: 50px">
+                                                <img src="{{ Storage::url($category->image) }}" style="width: 50px">
                                             </td>
                                             <td>{{ $category->name }}</td>
                                             <td>
-                                                <a href="{{ route('admin.category.edit', $category->id) }}" class=" btn btn-primary btn-sm"><i class="fa fa-pencil-alt mr-2"></i></a>
+                                                <a href="{{ route('admin.category.edit', $category->id) }}" class=" btn btn-primary btn-sm"><i class="fa fa-pencil-alt "></i></a>
                                                 <button onclick="Delete(this.id)" class="btn btn-sm btn-danger"
                                                 id="{{ $category->id }}">
                                                 <i class="fa fa-trash"></i>
@@ -59,7 +59,7 @@
                                 </tbody>
                             </table>
                             <div class="text-center">
-                                {{ $categories->links() }}
+                                {{ $categories->links("vendor.pagination.bootstrap-4") }}
                             </div>
                         </div>
                     </div>

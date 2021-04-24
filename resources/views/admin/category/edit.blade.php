@@ -8,11 +8,12 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow">
                     <div class="card-header">
-                        <h6 class="m-0 font-weight-bold text-uppercase"><i class="fas fa-folder mr-3"></i>tambah kategori</h6>
+                        <h6 class="m-0 font-weight-bold text-uppercase"><i class="fas fa-folder mr-3"></i>edit kategori</h6>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.category.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.category.update', $category->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="image">Gambar</label>
                                 <input type="file" name="image" id="image" class=" form-control @error('image') is-invalid @enderror">
@@ -24,7 +25,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Nama Kategori</label>
-                                <input type="text" name="name" id="name" value="{{ old('name') }}" placeholder="masukan nama kategori" class=" form-control @error('name') is-invalid @enderror">
+                                <input type="text" name="name" id="name" value="{{ old('name', $category->name)  }}" placeholder="masukan nama kategori" class=" form-control @error('name') is-invalid @enderror">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         <div class="h6 alert alert-danger">{{ $message }}</div>

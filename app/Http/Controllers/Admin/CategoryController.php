@@ -85,8 +85,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
+        $category = Category::findOrFail($id);
         return view('admin.category.edit', compact('category'));
     }
 
@@ -97,9 +98,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, $id)
     {
-        $category = Category::findOrFail($category->id);
+        $category = Category::findOrFail($id);
         // check jika image kosong
         if ($request->file('image') == '') {
             // update data tanpa image

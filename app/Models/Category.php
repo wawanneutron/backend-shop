@@ -13,11 +13,6 @@ class Category extends Model
         'name', 'slug', 'image'
     ];
 
-    public function getImageAttribute($image)
-    {
-        return asset('storage/categories/' . $image);
-    }
-
     public function products()
     {
         return $this->hasMany(Product::class);
