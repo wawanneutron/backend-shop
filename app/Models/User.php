@@ -37,4 +37,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*
+        function jika tidak ada avatar tampilkan
+        avatar dari link 
+     */
+    public function getAvatarUrlAtribute()
+    {
+        if ($this->avatar != null) {
+            return asset($this->avatar);
+        } else {
+            return 'https://ui-avatars.com/api/?name=' . str_replace(' ', '+', $this->name) .
+                '&background=4e73df&color=ffffff&size=100';
+        }
+    }
 }

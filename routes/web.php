@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 /*
@@ -20,5 +20,6 @@ Route::prefix('admin')
         Route::group(['middleware' => 'auth'], function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('admin.dashboard.index');
+            Route::resource('/category', CategoryController::class, ['as' => 'admin']);
         });
     });
