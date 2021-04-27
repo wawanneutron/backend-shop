@@ -102,7 +102,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         // check jika image kosong
-        if ($request->file('image') == '') {
+        if ($request->file('image') == null) {
             // update data tanpa image
             $category->update([
                 'name' => $request->name,

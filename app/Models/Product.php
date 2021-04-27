@@ -14,10 +14,6 @@ class Product extends Model
         'content', 'weight', 'price', 'discount'
     ];
 
-    public function getImageAttribute($image)
-    {
-        return asset('storage/products/' . $image);
-    }
 
     public function category()
     {

@@ -3,7 +3,7 @@
 ])
 
 @section('content')
-    <div class="container mb-5">
+    <div class="container-fluid mb-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow">
@@ -53,7 +53,7 @@
                                         </tr>
                                     @empty
                                         <div class="alert alert-danger">
-                                            Data Belum Tersedia !
+                                           <p> Data Belum Tersedia !</p>
                                         </div>
                                     @endforelse
                                 </tbody>
@@ -67,65 +67,65 @@
             </div>
         </div>
     </div>
-    <script>
-    //ajax delete
-    function Delete(id) {
-        var id = id;
-        var token = $("meta[name='csrf-token']").attr("content");
+<script>
+        //ajax delete
+        function Delete(id) {
+            var id = id;
+            var token = $("meta[name='csrf-token']").attr("content");
 
-        swal({
-            title: "APAKAH KAMU YAKIN ?",
-            text: "INGIN MENGHAPUS DATA INI!",
-            icon: "warning",
-            buttons: [
-                'TIDAK',
-                'YA'
-            ],
-            dangerMode: true,
-        }).then(function (isConfirm) {
-            if (isConfirm) {
+            swal({
+                title: "APAKAH KAMU YAKIN ?",
+                text: "INGIN MENGHAPUS DATA INI!",
+                icon: "warning",
+                buttons: [
+                    'TIDAK',
+                    'YA'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
 
-                //ajax delete
-                jQuery.ajax({
-                    url: "{{ route("admin.category.index") }}/" + id,
-                    data: {
-                        "id": id,
-                        "_token": token
-                    },
-                    type: 'DELETE',
-                    success: function (response) {
-                        if (response.status == "success") {
-                            swal({
-                                title: 'BERHASIL!',
-                                text: 'DATA BERHASIL DIHAPUS!',
-                                icon: 'success',
-                                timer: 1000,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                buttons: false,
-                            }).then(function () {
-                                location.reload();
-                            });
-                        } else {
-                            swal({
-                                title: 'GAGAL!',
-                                text: 'DATA GAGAL DIHAPUS!',
-                                icon: 'error',
-                                timer: 1000,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                buttons: false,
-                            }).then(function () {
-                                location.reload();
-                            });
+                    //ajax delete
+                    jQuery.ajax({
+                        url: "{{ route("admin.category.index") }}/" + id,
+                        data: {
+                            "id": id,
+                            "_token": token
+                        },
+                        type: 'DELETE',
+                        success: function (response) {
+                            if (response.status == "success") {
+                                swal({
+                                    title: 'BERHASIL!',
+                                    text: 'DATA BERHASIL DIHAPUS!',
+                                    icon: 'success',
+                                    timer: 1000,
+                                    showConfirmButton: false,
+                                    showCancelButton: false,
+                                    buttons: false,
+                                }).then(function () {
+                                    location.reload();
+                                });
+                            } else {
+                                swal({
+                                    title: 'GAGAL!',
+                                    text: 'DATA GAGAL DIHAPUS!',
+                                    icon: 'error',
+                                    timer: 1000,
+                                    showConfirmButton: false,
+                                    showCancelButton: false,
+                                    buttons: false,
+                                }).then(function () {
+                                    location.reload();
+                                });
+                            }
                         }
-                    }
-                });
+                    });
 
-            } else {
-                return true;
-            }
-        })
-    }
+                } else {
+                    return true;
+                }
+            })
+        }
 </script>
 @endsection

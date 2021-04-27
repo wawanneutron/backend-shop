@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard.index') }}">
     <div class="sidebar-brand-icon">
         <i class="fab fa-apple"></i>
     </div>
@@ -37,7 +37,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">KATEGORI & PRODUK</h6>
         <a class="collapse-item {{ Request::is('admin/category*') ? ' active' : '' }}" href="{{ route('admin.category.index') }}">KATEGORI</a>
-        <a class="collapse-item {{ Request::is('admin/product*') ? ' active' : '' }}" href="#">PRODUK</a>
+        <a class="collapse-item {{ Request::is('admin/product*') ? ' active' : '' }}" href="{{ route('admin.product.index') }}">PRODUK</a>
         </div>
     </div>
     </li>
@@ -47,7 +47,7 @@
     </div>
 
     <li class="nav-item {{ Request::is('admin/order*') ? ' active' :  '' }}">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="{{ route('admin.order.index') }}">
         <i class="fas fa-shopping-cart"></i>
         <span>ORDERS</span></a>
     </li>
