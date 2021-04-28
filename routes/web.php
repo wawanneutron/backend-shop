@@ -26,5 +26,8 @@ Route::prefix('admin')
                 ->name('admin.order.index');
             Route::get('/order/{id}', [OrderController::class, 'show'])
                 ->name('admin.order.show');
+            Route::get('/customer', [CustomerController::class, 'index'])
+                ->name('admin.customer.index');
+            Route::resource('/slider', SliderController::class, ['except' => ['show', 'create', 'edit', 'update'], 'as' => 'admin']);
         });
     });
