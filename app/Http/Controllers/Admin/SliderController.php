@@ -51,10 +51,10 @@ class SliderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destory($id)
+    public function destroy($id)
     {
         $slider = Slider::findOrFail($id);
-        $image = Storage::delete('public/', $slider->image);
+        $image = Storage::delete('public/' . $slider->image);
 
         $slider->delete();
 
