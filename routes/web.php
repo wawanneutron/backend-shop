@@ -20,6 +20,7 @@ Route::prefix('admin')
             Route::resource('/category', CategoryController::class, ['as' => 'admin']);
             Route::resource('/product', ProductController::class, ['as' => 'admin']);
             Route::resource('/slider', SliderController::class, ['except' => ['show', 'create', 'edit', 'update'], 'as' => 'admin']);
+            Route::resource('/user', UserController::class, ['as' => 'admin']);
 
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('admin.dashboard.index');
