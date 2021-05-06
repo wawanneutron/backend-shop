@@ -50,3 +50,11 @@ Route::post('/cart/remove', [CartController::class, 'removeCart'])
     ->name('api.cart.remove');
 Route::post('/cart/remove-all', [CartController::class, 'removeAllCart'])
     ->name('api.cart.removeAll');
+
+// routes Raja Ongkir
+Route::get('/rajaongkir/provinces', [RajaOngkirController::class, 'getProvinces'])
+    ->name('customer.rajaongkir.getProvinces');
+Route::get('/rajaongkir/cities', [RajaOngkirController::class, 'getCities'])
+    ->name('customer.rajaongkir.getCities');
+Route::post('/rajaongkir/check-ongkir', [RajaOngkirController::class, 'checkOngkir'])
+    ->name('customer.rajaongkir.checkOngkir');
