@@ -51,6 +51,9 @@ Route::post('/cart/remove', [CartController::class, 'removeCart'])
 Route::post('/cart/remove-all', [CartController::class, 'removeAllCart'])
     ->name('api.cart.removeAll');
 
+// route slider
+Route::get('/sliders', [SliderController::class, 'index'])->name('data.slider');
+
 // routes Raja Ongkir
 Route::get('/rajaongkir/provinces', [RajaOngkirController::class, 'getProvinces'])
     ->name('customer.rajaongkir.getProvinces');
@@ -58,3 +61,7 @@ Route::get('/rajaongkir/cities', [RajaOngkirController::class, 'getCities'])
     ->name('customer.rajaongkir.getCities');
 Route::post('/rajaongkir/check-ongkir', [RajaOngkirController::class, 'checkOngkir'])
     ->name('customer.rajaongkir.checkOngkir');
+
+// routs checkout (midtrans)
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::post('/notification-handler', [CheckoutController::class, 'notificationHandler'])->name('checkout.notificationHandler');
