@@ -25,7 +25,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([$validator->errors(), 400]);
+            return response()->json($validator->errors(), 400);
         }
         $customer = Customer::create([
             'name'      => $request->name,
