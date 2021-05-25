@@ -20,7 +20,7 @@ Route::get('/user', [AuthController::class, 'getUser'])
 // routes order
 Route::get('/order', [OrderController::class, 'index'])
     ->name('api.order.index');
-Route::get('/order/{snap_token?}', [OrderControlller::class, 'show'])
+Route::get('/order/{snap_token?}', [OrderController::class, 'show'])
     ->name('api.order.show');
 
 // routs category
