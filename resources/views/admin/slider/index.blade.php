@@ -56,7 +56,7 @@
                                         <tr>
                                             <td>{{ ++$no + ($sliders->currentPage()-1) * $sliders->perPage() }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($slider->image) }}" class=" rounded" width="200px">
+                                                <img src="{{ $slider->image }}" class=" rounded" width="200px">
                                             </td>
                                             <td>{{ $slider->link }}</td>
                                             <td>

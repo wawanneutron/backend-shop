@@ -12,4 +12,9 @@ class Slider extends Model
     protected $fillable = [
         'image', 'link'
     ];
+
+    public function getImageAttribute($image)
+    {
+        return asset('storage/' . $image);
+    }
 }

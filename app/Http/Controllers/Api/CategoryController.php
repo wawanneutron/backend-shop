@@ -37,12 +37,12 @@ class CategoryController extends Controller
         }
     }
 
-    public function categoryHader()
+    public function categoryHome()
     {
         $categories = Category::latest()->take(5)->get();
         return response()->json([
             'status'        =>  true,
-            'message'       =>  'List Data Category Header',
+            'message'       =>  'List Data Category Home',
             'categories'    =>  $categories
         ]);
     }

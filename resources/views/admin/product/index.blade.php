@@ -41,7 +41,7 @@
                                         <tr>
                                             <td>{{ ++$no + ($products->currentPage()-1) * $products->perPage() }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($product->image) }}" width="80px">
+                                                <img src="{{ $product->image }}" width="80px">
                                             </td>
                                             <td>{{ $product->title }}</td>
                                             <td>{{ $product->category->name }}</td>

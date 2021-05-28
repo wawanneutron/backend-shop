@@ -24,11 +24,11 @@ Route::get('/order/{snap_token?}', [OrderController::class, 'show'])
     ->name('api.order.show');
 
 // routs category
-Route::get('/category', [CategoryController::class, 'index'])
-    ->name('api.category.index');
-Route::get('/category/{slug?}', [CategoryController::class, 'show'])
+Route::get('/categories-all', [CategoryController::class, 'index'])
+    ->name('api.category.all');
+Route::get('/category-show/{slug?}', [CategoryController::class, 'show'])
     ->name('api.category.show');
-Route::get('/category-header', [CategoryController::class, 'index'])
+Route::get('/categories-home', [CategoryController::class, 'categoryHome'])
     ->name('api.category.index');
 
 // routs products

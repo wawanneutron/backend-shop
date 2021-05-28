@@ -40,7 +40,7 @@
                                         <tr>
                                             <td>{{ ++$no + ($categories->currentPage()-1) * $categories->perPage() }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($category->image) }}" style="width: 50px">
+                                                <img src="{{ $category->image }}" style="width: 50px">
                                             </td>
                                             <td>{{ $category->name }}</td>
                                             <td>
