@@ -33,8 +33,8 @@ class CartController extends Controller
 
         if ($item->count()) {
             // increment quantity
-            $item->increment('quntity');
-            $items = $item->first();
+            $item->increment('quantity');
+            $item = $item->first();
             //sum price and wight * quantity
             $price = $request->price * $item->quantity;
             $weight = $request->weight * $item->quantity;
