@@ -21,11 +21,12 @@ class CheckoutController extends Controller
         $this->middleware('auth:api')->except('notificationHandler');
 
         $this->request = $request;
-        // set Midtrans configuration
-        Config::$serverKey      = config('services.midtrans.serverKey');
-        Config::$isProduction   = config('services.midtrans.isProduction');
-        Config::$isSanitized    = config('services.midtrans.isSanitized');
-        Config::$is3ds          = config('services.midtrans.is3ds');
+       
+        // Set midtrans configuration
+        Config::$serverKey    = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProduction');
+        Config::$isSanitized  = config('services.midtrans.isSanitized');
+        Config::$is3ds        = config('services.midtrans.is3ds');
     }
 
 
@@ -43,7 +44,7 @@ class CheckoutController extends Controller
 
             $invoice = Invoice::create([
                 'invoice'       =>  $no_invoice,
-                'customer_id'   =>  auth()->user()->id,
+                'customer_id'   =>  auth()->guard('api')->user()->id,
                 'courier'       =>  $this->request->courier,
                 'service'       =>  $this->request->service,
                 'cost_courier'  =>  $this->request->cost_courier,
@@ -56,7 +57,7 @@ class CheckoutController extends Controller
                 'grand_total'   =>  $this->request->grand_total,
                 'status'        =>  'Pending'
             ]);
-            foreach (Cart::where('customer_id', auth()->user()->id)->get() as $cart) {
+            foreach (Cart::where('customer_id', auth()->guard('api')->user()->id)->get() as $cart) {
                 // insert product yang ada di kranjang/cart  ke table order
                 $invoice->orders()->create([
                     'invoice_id'    =>  $invoice->id,
@@ -72,24 +73,29 @@ class CheckoutController extends Controller
             kemudian save snap tokennya ke databse */
             $payload = [
                 'transaction_details' => [
-                    'order_id'      =>  $invoice->invoice,
-                    'gross_amount'  =>  $invoice->grand_total,
+                    'order_id'      => $invoice->invoice,
+                    'gross_amount'  => $invoice->grand_total,
                 ],
-                'customer)details'  =>  [
-                    'first_name'        =>  $invoice->name,
-                    'email'             =>  auth()->user()->email,
-                    'phone'             =>  $invoice->phone,
-                    'shipping_address'  =>  $invoice->address
-                ]
+                'customer_details' => [
+                    'first_name'       => $invoice->name,
+                    'email'            => auth()->guard('api')->user()->email,
+                    'phone'            => $invoice->phone,
+                    'shipping_address' => $invoice->address
+                ],
+                'vtweb' => []
+
             ];
-            // create snap token
+
+            //create snap token
             $snapToken = Snap::getSnapToken($payload);
             $invoice->snap_token = $snapToken;
             $invoice->save();
+
+            $this->response['snap_token'] = $snapToken;
         });
         return response()->json([
-            'success'   =>  true,
-            'message'   =>  'Order Successfully',
+            'success' => true,
+            'message' => 'Order Successfully',
             $this->response
         ]);
     }
@@ -139,6 +145,7 @@ class CheckoutController extends Controller
             $data_transaction->update([
                 'status' => 'success'
             ]);
+            
         } elseif ($transactionStatus == 'pending') {
             // update invoice to pending
             $data_transaction->update([
@@ -160,5 +167,12 @@ class CheckoutController extends Controller
                 'status' => 'failed'
             ]);
         }
+        return response()->json([
+            'meta' => [
+                'code' => 200,
+                'message' => 'Midtrans notification success'
+            ]
+        ]);
+        
     }
 }

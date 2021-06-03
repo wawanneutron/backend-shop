@@ -32,14 +32,13 @@ return [
 
     //midtrans
     'midtrans' => [
-        // Midtrans server key
-        'serverKey'     => env('MIDTRANS_SERVERKEY'),
-        // Midtrans client key
-        'clientKey'     => env('MIDTRANS_CLIENTKEY'),
-        // Isi false jika masih tahap development dan true jika sudah di production, default false (development)
-        'isProduction'  => env('MIDTRANS_IS_PRODUCTION', false),
-        'isSanitized'   => env('MIDTRANS_IS_SANITIZED', true),
-        'is3ds'         => env('MIDTRANS_IS_3DS', true),
+        'serverKey'     => env('MIDTRANS_SERVER_KEY', ''),
+        'clientKey'     => env('MIDTRANS_CLIENT_KEY', ''),
+        'isProduction'  => env('MIDTRANS_IS_PRODUCTION', ''),
+        'isSanitized'   => env('MIDTRANS_IS_SANITIZED', ''),
+        'is3ds'         => env('MIDTRANS_IS_3DS', ''),
     ],
+
+
 
 ];
