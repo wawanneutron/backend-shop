@@ -22,8 +22,8 @@
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class=" table table-hover table-bordered">
-                                <thead class=" table-warning text-uppercase text-center">
+                            <table class=" table table-hover ">
+                                <thead class=" table-primary text-uppercase text-center">
                                     <tr>
                                         <th style="width: 6%">No.</th>
                                         <th>No. Invoice</th>
@@ -37,13 +37,13 @@
                                     @forelse ($invoices as $no => $invoice)
                                         <tr>
                                             <td>{{ ++$no + ($invoices->currentPage()-1) * ($invoices->perpage()) }}</td>
-                                            <th>{{ $invoice->invoice }}</th>
-                                            <th>{{ $invoice->name }}</th>
-                                            <th>{{ $invoice->grand_total }}</th>
-                                            <th>{{ $invoice->status }}</th>
-                                            <th>
+                                            <td>{{ $invoice->invoice }}</td>
+                                            <td>{{ $invoice->name }}</td>
+                                            <td>{{ $invoice->grand_total }}</td>
+                                            <td>{{ $invoice->status }}</td>
+                                            <td>
                                                 <a href="{{ route('admin.order.show', $invoice->id) }}" class=" btn btn-primary"><i class="fa fa-list-ul"></i></a>
-                                            </th>
+                                            </td>
                                         </tr>
                                     @empty
                                         <div class="alert alert-danger">

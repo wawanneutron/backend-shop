@@ -18,6 +18,6 @@ if (!function_exists('dateID')) {
     {
         $value = Carbon::parse($tanggal);
         $parse = $value->locale('id');
-        return $parse->translatedFormat('1, d F Y');
+        return $parse->translatedFormat('d F Y');
     }
 }

@@ -34,7 +34,7 @@
                                 <tbody>
                                     @forelse ($customers as $no => $customer)
                                         <tr>
-                                            <td>{{ ++$no + ($customer->currentPage()-1) * $customer->perPage() }}</td>
+                                            <td>{{ ++$no + ($customers->currentPage()-1) * $customers->perPage() }}</td>
                                             <td>{{ $customer->name }}</td>
                                             <td>{{ $customer->email }}</td>
                                             <td>{{ dateID($customer->created_at) }}</td>
