@@ -21,7 +21,7 @@ class CheckoutController extends Controller
         $this->middleware('auth:api')->except('notificationHandler');
 
         $this->request = $request;
-       
+
         // Set midtrans configuration
         Config::$serverKey    = config('services.midtrans.serverKey');
         Config::$isProduction = config('services.midtrans.isProduction');
@@ -55,7 +55,7 @@ class CheckoutController extends Controller
                 'city'          =>  $this->request->city,
                 'address'       =>  $this->request->address,
                 'grand_total'   =>  $this->request->grand_total,
-                'status'        =>  'Pending'
+                'status'        =>  'Pending',
             ]);
             foreach (Cart::where('customer_id', auth()->guard('api')->user()->id)->get() as $cart) {
                 // insert product yang ada di kranjang/cart  ke table order
@@ -134,18 +134,17 @@ class CheckoutController extends Controller
                         'status' => 'pending'
                     ]);
                 } else {
-                    // update invoice to success
+                    // update invoice to payment-success
                     $data_transaction->update([
-                        'status' => 'success'
+                        'status' => 'payment-success'
                     ]);
                 }
             }
         } elseif ($transactionStatus == 'settlement') {
-            // update invoice to success
+            // update invoice to payment-success
             $data_transaction->update([
-                'status' => 'success'
+                'status' => 'payment-success'
             ]);
-            
         } elseif ($transactionStatus == 'pending') {
             // update invoice to pending
             $data_transaction->update([
@@ -173,6 +172,5 @@ class CheckoutController extends Controller
                 'message' => 'Midtrans notification success'
             ]
         ]);
-        
     }
 }

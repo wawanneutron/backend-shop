@@ -11,7 +11,7 @@ class Invoice extends Model
 
     protected $fillable = [
         'invoice', 'customer_id', 'courier', 'service', 'cost_courier', 'weight',
-        'name', 'phone', 'province', 'city', 'address', 'status', 'snap_token', 'grand_total'
+        'name', 'phone', 'province', 'city', 'address', 'status', 'resi', 'snap_token', 'grand_total'
     ];
 
     public function orders()
@@ -22,5 +22,15 @@ class Invoice extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function provinsi()
+    {
+        return $this->belongsTo(Province::class, 'province', 'province_id');
+    }
+
+    public function kota()
+    {
+        return $this->belongsTo(City::class, 'city', 'city_id');
     }
 }

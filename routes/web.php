@@ -21,13 +21,10 @@ Route::prefix('admin')
             Route::resource('/product', ProductController::class, ['as' => 'admin']);
             Route::resource('/slider', SliderController::class, ['except' => ['show', 'create', 'edit', 'update'], 'as' => 'admin']);
             Route::resource('/user', UserController::class, ['as' => 'admin']);
+            Route::resource('/order', OrderController::class, ['except' => ['destroy'], 'as' => 'admin']);
 
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('admin.dashboard.index');
-            Route::get('/order', [OrderController::class, 'index'])
-                ->name('admin.order.index');
-            Route::get('/order/{id}', [OrderController::class, 'show'])
-                ->name('admin.order.show');
             Route::get('/customer', [CustomerController::class, 'index'])
                 ->name('admin.customer.index');
             Route::get('/profile', [ProfileController::class, 'index'])

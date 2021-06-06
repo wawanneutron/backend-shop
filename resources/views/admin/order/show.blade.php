@@ -4,13 +4,13 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="app">
             <div class="col-md-12">
                 <div class="card border-0 shadow">
                     <div class=" card-header">
                         <h6 class="m6 font-weight-bold text-uppercase"><i class="fas fa-shopping-cart mr-3"></i>detail order</h6>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" >
                         <table class="table table-bordered">
                             <tr>
                                 <td width="25%">
@@ -30,21 +30,76 @@
                                 <td>{{ $invoice->courier }} / {{ $invoice->service }} / {{ moneyFormat($invoice->cost_courier) }}</td>
                             </tr>
                             <tr>
-                                <td>Alamat lengkap</td>
+                                <td> Provinsi </td>
                                 <td>:</td>
-                                <td>{{ $invoice->address }}</td>
+                                <td>{{ $invoice->provinsi->name }}</td></td>
+                            </tr>
+                            <tr> 
+                                <td> Kab / Kota</td>
+                                <td>:</td>
+                                <td>{{ $invoice->kota->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Alamat lengkap Pengiriman</td>
+                                <td>:</td>
+                                <td>
+                                    {{ $invoice->address }} 
+                                </td>    
                             </tr>
                             <tr>
                                 <td>Total Pembelian</td>
                                 <td>:</td>
                                 <td>{{ moneyFormat($invoice->grand_total) }}</td>
                             </tr>
-                            <tr>
+                            <tr >
                                 <td>Status</td>
                                 <td>:</td>
                                 <td>{{ $invoice->status }}</td>
                             </tr>
                         </table>
+                        <div class="row">
+                            <div class="col-md-4">
+                                @if ($invoice->status == 'payment-success')
+                                    <label>Update Status</label>
+                                    <form action="{{ route('admin.order.update', $invoice->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <select class=" form-control" name="status" >
+                                            <option disabled>--Pilih Status--</option>
+                                            <option value="process">Barang Diproses</option>
+                                        </select>
+                                        <button type="submit" class="mt-4 btn btn-primary">Update</button>
+                                    </form>
+                                @endif
+
+                                @if ($invoice->status == 'process')
+                                    <label>Update Status</label>
+                                    <form action="{{ route('admin.order.update', $invoice->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <select class=" form-control" name="status" >
+                                            <option disabled>--Pilih Status--</option>
+                                            <option value="shipping">Barang Dikirim</option>
+                                        </select>
+                                        <input type="text" name="resi" class=" form-control mt-3" placeholder="input resi">
+                                        <button type="submit" class="mt-4 btn btn-primary">Update</button>
+                                    </form>
+                                @endif
+
+                                @if ($invoice->status == 'shipping')
+                                    <label>Update Status</label>
+                                    <form action="{{ route('admin.order.update', $invoice->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <select class=" form-control" name="status" >
+                                            <option disabled>--Pilih Status--</option>
+                                            <option value="success">Pengiriman success</option>
+                                        </select>
+                                        <button type="submit" class="mt-4 btn btn-primary">Update</button>
+                                    </form>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card border-0 rounded shadow mt-4">
