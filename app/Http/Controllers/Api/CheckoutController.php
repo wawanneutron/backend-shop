@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Invoice;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -69,6 +70,7 @@ class CheckoutController extends Controller
                     'price'         =>  $cart->price,
                 ]);
             }
+
             /* Buat transaksi ke Midtrans,
             kemudian save snap tokennya ke databse */
             $payload = [

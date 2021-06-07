@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -28,16 +29,20 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        $item = Cart::where('product_id', $request->product_id)
+        $item = Cart::with('product')->where('product_id', $request->product_id)
             ->where('customer_id', $request->customer_id);
 
         if ($item->count()) {
             // increment quantity
             $item->increment('quantity');
+
             $item = $item->first();
+
             //sum price and wight * quantity
             $price = $request->price * $item->quantity;
             $weight = $request->weight * $item->quantity;
+
+
             $item->update([
                 'price'     => $price,
                 'weight'    => $weight,
@@ -51,6 +56,12 @@ class CartController extends Controller
                 'weight'        => $request->weight
             ]);
         }
+
+        // decrement stock
+        $stock = $item->product->stock -= $request->quantity;
+        $item->product()->update([
+            'stock' => $stock
+        ]);
 
         return response()->json([
             'success'   => true,

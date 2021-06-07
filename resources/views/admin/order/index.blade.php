@@ -31,6 +31,7 @@
                                         <th>No. Invoice</th>
                                         <th>Nama Lengkap</th>
                                         <th>Grand Total</th>
+                                        <th>Resi</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -42,6 +43,7 @@
                                             <td>{{ $invoice->invoice }}</td>
                                             <td>{{ $invoice->name }}</td>
                                             <td>{{ moneyFormat($invoice->grand_total )}}</td>
+                                            <td>{{ $invoice->resi }}</td>
                                             <td>{{ $invoice->status }}</td>
                                             <td>
                                                 <a href="{{ route('admin.order.show', $invoice->id) }}" class=" btn btn-primary ml-4"><i class="fa fa-eye"></i></a>

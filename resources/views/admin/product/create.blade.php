@@ -32,7 +32,7 @@
                                 @enderror
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="category">Category</label>
                                         <select name="category_id" class=" form-control">
@@ -48,11 +48,22 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="weight">Berat</label>
                                         <input type="number" name="weight" value="{{ old('weight') }}" class=" form-control @error('weight') is-invalid @enderror" placeholder="Berat Product (gram)">
                                          @error('weight')
+                                            <div class="invalid-feedback">
+                                            <p>{{ $message }}</p>
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="stock">Stock Barang</label>
+                                        <input type="number" name="stock" value="{{ old('stock') }}" class=" form-control @error('stock') is-invalid @enderror" placeholder="Stock Barang (per pcs)">
+                                         @error('stock')
                                             <div class="invalid-feedback">
                                             <p>{{ $message }}</p>
                                         </div>

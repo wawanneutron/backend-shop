@@ -57,6 +57,7 @@ class ProductController extends Controller
             'content'       => $request->content,
             'weight'        => $request->weight,
             'price'         => $request->price,
+            'stock'         => $request->stock,
             'discount'      => $request->discount,
         ]);
 
@@ -113,6 +114,7 @@ class ProductController extends Controller
                 'content'   => $request->content,
                 'weight'    => $request->weight,
                 'price'     => $request->price,
+                'stock'     => $request->stock,
                 'discount'  =>  $request->discount,
             ]);
         } else {
@@ -127,6 +129,7 @@ class ProductController extends Controller
                 'content'   => $request->content,
                 'weight'    => $request->weight,
                 'price'     => $request->price,
+                'stock'     => $request->stock,
                 'discount'  => $request->discount,
             ]);
         }

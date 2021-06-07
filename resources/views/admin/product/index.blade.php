@@ -30,9 +30,11 @@
                                 <thead>
                                     <tr class=" text-uppercase ">
                                         <th style="width: 6%">No.</th>
-                                        <th style="width: 30%">Image</th>
+                                        <th style="width: 20%">Image</th>
                                         <th>Nama Product</th>
                                         <th>Kategori</th>
+                                        <th>Harga</th>
+                                        <th>Stock</th>
                                         <th style="width: 15%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -45,6 +47,8 @@
                                             </td>
                                             <td>{{ $product->title }}</td>
                                             <td>{{ $product->category->name }}</td>
+                                            <th> {{ moneyFormat($product->price) }} </th>
+                                            <th> {{ $product->stock }} </th>
                                             <td>
                                                 <a href="{{ route('admin.product.edit', $product->id) }}" class=" btn btn-primary ">
                                                     <i class="fas fa-pencil-alt"></i>

@@ -14,6 +14,13 @@
                         <table class="table table-bordered">
                             <tr>
                                 <td width="25%">
+                                    Tanggal Pembelian
+                                </td>
+                                <td width="1%">:</td>
+                                <td>{{ dateID($invoice->created_at) }}</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">
                                     No. Invoice
                                 </td>
                                 <td width="1%">:</td>
