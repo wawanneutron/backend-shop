@@ -69,6 +69,12 @@ class CheckoutController extends Controller
                     'qty'           =>  $cart->quantity,
                     'price'         =>  $cart->price,
                 ]);
+
+                // decrement stock
+                $stock = $cart->product->stock -= $cart->quantity;
+                $cart->product()->update([
+                    'stock' => $stock
+                ]);
             }
 
             /* Buat transaksi ke Midtrans,
@@ -103,6 +109,7 @@ class CheckoutController extends Controller
     }
 
 
+    // kirim notifikasi ke midtrans
     public function notificationHandler(Request $request)
     {
         $payload            =   $request->getContent();

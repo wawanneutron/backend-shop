@@ -32,7 +32,9 @@ Route::get('/categories-home', [CategoryController::class, 'categoryHome'])
     ->name('api.category.index');
 
 // routs products
-Route::get('/products', [ProductController::class, 'index'])
+Route::get('/products', [ProductController::class, 'productAll'])
+    ->name('api.product.index');
+Route::get('/products-home', [ProductController::class, 'productHome'])
     ->name('api.product.index');
 Route::get('/product/{slug?}', [ProductController::class, 'show'])
     ->name('api.product.show');

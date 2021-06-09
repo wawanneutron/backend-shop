@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function productAll()
     {
         $products = Product::latest()->get();
 
@@ -18,6 +18,18 @@ class ProductController extends Controller
             'product'   => $products
         ], 200);
     }
+
+    public function productHome()
+    {
+        $products = Product::latest()->take(8)->get();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => 'List Data Product',
+            'product'   => $products
+        ], 200);
+    }
+
 
     public function show($slug)
     {

@@ -57,12 +57,6 @@ class CartController extends Controller
             ]);
         }
 
-        // decrement stock
-        $stock = $item->product->stock -= $request->quantity;
-        $item->product()->update([
-            'stock' => $stock
-        ]);
-
         return response()->json([
             'success'   => true,
             'message'   => 'Success add to cart',
@@ -74,7 +68,7 @@ class CartController extends Controller
     public function cartTotalPrice()
     {
         $carts = Cart::with('product')
-            ->where('customer_id', auth()->user()->id)
+            ->where('customer_id', auth()->guard('api')->user()->id)
             ->orderBy('created_at', 'desc')
             ->sum('price');
         return response()->json([
@@ -87,7 +81,7 @@ class CartController extends Controller
     public function cartTotalWeight()
     {
         $carts = Cart::with('product')
-            ->where('customer_id', auth()->user()->id)
+            ->where('customer_id', auth()->guard('api')->user()->id)
             ->orderBy('created_at', 'desc')
             ->sum('weight');
         return response()->json([
