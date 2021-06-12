@@ -15,7 +15,7 @@ class ProductController extends Controller
         return response()->json([
             'success'   => true,
             'message'   => 'List Data Product',
-            'product'   => $products
+            'product'   => $products,
         ], 200);
     }
 
@@ -33,7 +33,7 @@ class ProductController extends Controller
 
     public function show($slug)
     {
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::with('gallery')->where('slug', $slug)->first();
         if ($product) {
             return response()->json([
                 'success'   => true,

@@ -25,6 +25,11 @@ class Product extends Model
         return $this->hasMany(Cart::class);
     }
 
+    public function gallery()
+    {
+        return $this->hasMany(ProductGallery::class, 'products_id', 'id');
+    }
+
     public function getImageAttribute($image)
     {
         return asset('storage/' . $image);

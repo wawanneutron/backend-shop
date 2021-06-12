@@ -38,6 +38,7 @@
         <h6 class="collapse-header">KATEGORI & PRODUK</h6>
         <a class="collapse-item {{ Request::is('admin/category*') ? ' active' : '' }}" href="{{ route('admin.category.index') }}">KATEGORI</a>
         <a class="collapse-item {{ Request::is('admin/product*') ? ' active' : '' }}" href="{{ route('admin.product.index') }}">PRODUK</a>
+        <a class="collapse-item {{ Request::is('admin/gallery*') ? ' active' : '' }}" href="{{ route('admin.gallery-product.index') }}"> GALLERY PRODUK</a>
         </div>
     </div>
     </li>
