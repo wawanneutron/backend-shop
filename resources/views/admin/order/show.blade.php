@@ -101,6 +101,7 @@
                                         <select class=" form-control" name="status" >
                                             <option disabled>--Pilih Status--</option>
                                             <option value="success">Pengiriman success</option>
+                                            <input type="text" hidden value=" {{ $invoice->resi }} " name="resi" class=" form-control mt-3" placeholder="input resi">
                                         </select>
                                         <button type="submit" class="mt-4 btn btn-primary">Update</button>
                                     </form>
