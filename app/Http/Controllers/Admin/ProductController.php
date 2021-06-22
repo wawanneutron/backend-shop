@@ -10,6 +10,7 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
@@ -20,11 +21,41 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->when(request()->q, function ($products) {
-            $products->where('title', 'like', '%' . request()->q . '%');
-        })->paginate(10);
+        // $products = Product::latest()->when(request()->q, function ($products) {
+        //     $products->where('title', 'like', '%' . request()->q . '%');
+        // })->paginate(10);
 
-        return view('admin.product.index', compact('products'));
+        if (request()->ajax()) {
+            $products = Product::with('category');
+            return DataTables::of($products)
+                ->addColumn('action', function ($item) {
+                    return '
+                    <div class="btn-group">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">
+                                Aksi
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="btn btn-primary" href="' . route('admin.product.edit', $item->id) . '"><i class="fas fa-pencil-alt"></i></a>
+                                <button onclick="Delete(this.id)" class=" btn btn-danger " id=" ' . $item->id . '">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ';
+                })
+                ->addColumn('pic', function ($item) {
+                    $url = asset("$item->image");
+                    return '
+                    <img src=' . $url . ' border="0" width="40" class="img-rounded" align="center" />;
+                ';
+                })
+                ->rawColumns(['action', 'pic'])
+                ->make();
+        }
+
+        return view('admin.product.index');
     }
 
     /**

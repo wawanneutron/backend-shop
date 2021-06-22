@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NotifCheckoutPayment;
+use App\Mail\NotificationCheckout;
 use App\Models\Cart;
 use App\Models\Invoice;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Midtrans\Config;
 use Midtrans\Snap;
 
@@ -77,6 +79,8 @@ class CheckoutController extends Controller
                 ]);
             }
 
+
+
             /* Buat transaksi ke Midtrans,
             kemudian save snap tokennya ke databse */
             $payload = [
@@ -104,9 +108,10 @@ class CheckoutController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Order Successfully',
-            $this->response
+            $this->response,
         ]);
     }
+
 
 
     // kirim notifikasi ke midtrans
@@ -128,7 +133,7 @@ class CheckoutController extends Controller
         $fraud                =   $notification->fraud_status;
 
         // data transaction
-        $data_transaction   = Invoice::where('invoice', $orderId)->first();
+        $data_transaction   = Invoice::with(['customer', 'orders'])->where('invoice', $orderId)->first();
 
         if ($transactionStatus == 'capture') {
             /* 
@@ -159,6 +164,8 @@ class CheckoutController extends Controller
             $data_transaction->update([
                 'status' => 'pending'
             ]);
+
+            Mail::to($data_transaction->customer->email)->send(new NotificationCheckout($data_transaction));
         } elseif ($transactionStatus == 'deny') {
             // update invoice to failed
             $data_transaction->update([

@@ -26,10 +26,9 @@
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class=" table table-bordered text-center">
+                            <table class=" table table-bordered text-center" id="crudTable">
                                 <thead>
                                     <tr class=" text-uppercase ">
-                                        <th style="width: 6%">No.</th>
                                         <th style="width: 20%">Image</th>
                                         <th>Nama Product</th>
                                         <th>Kategori</th>
@@ -39,7 +38,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($products as $no => $product)
+                                    {{-- @forelse ($products as $no => $product)
                                         <tr>
                                             <td>{{ ++$no + ($products->currentPage()-1) * $products->perPage() }}</td>
                                             <td>
@@ -62,12 +61,12 @@
                                         <div class="alert alert-danger">
                                             <p>Data Belum Tersedia !</p>
                                         </div>
-                                    @endforelse
+                                    @endforelse --}}
                                 </tbody>
                             </table>
-                            <div class="text-center">
+                            {{-- <div class="text-center">
                                 {{ $products->links('vendor.pagination.bootstrap-4') }}
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -76,8 +75,48 @@
     </div>
 @endsection
 
-<script>
-    //ajax delete
+@push('addon-script')
+     <script>
+        //  DataTables
+      $(document).ready(function() {
+          $('#crudTable').DataTable({  
+          processing: true,
+          serverSide: true,
+          ordering: true,
+          ajax: {
+            url: '{!! url()->current() !!}',
+          },
+          columns: [
+            {
+              data: 'pic',
+              name: 'pic',
+              orderable: false,
+              searcable: false,
+            },
+            { data: 'title', name: 'title' },
+            { data: 'category.name', name: 'category.name' },
+            {
+              data: 'price', name: 'price',
+              render: $.fn.dataTable.render.number( ',', '.', 2, 'Rp ' )
+            },
+            { data: 'stock', name: 'stock' },
+             {
+              data: 'action',
+              name: 'action',
+              orderable: false,
+              searcable: false,
+            },
+            ],
+             dom: 'lBfrtip',
+              buttons: [
+                'excel', 'pdf', 'copy', 'print'
+              ],
+              "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+  
+        });
+      });
+
+      //ajax delete switalert
     function Delete(id) {
         var id = id;
         var token = $("meta[name='csrf-token']").attr("content");
@@ -136,4 +175,6 @@
             }
         })
     }
-</script>
+      
+    </script>
+@endpush
