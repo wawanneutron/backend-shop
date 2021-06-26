@@ -10,7 +10,20 @@
     <div class="row">
 
         <!-- Area Chart -->
-        <div class="col-md-4">
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold">PENDAPATAN HARI INI</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <h5>{{ moneyFormat($revanueDay) }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
 
             <div class="card border-0 shadow mb-4">
                 <!-- Card Header - Dropdown -->
@@ -24,7 +37,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card border-0 shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -37,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card border-0 shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">

@@ -18,8 +18,14 @@ class DashboardController extends Controller
         // year and month
         $year  = date('Y');
         $month = date('m');
+        $day   = date('d');
 
         // statistic revenue
+        $revanueDay = Invoice::where('status', 'success')
+            ->whereDay('created_at', '=', $day)
+            ->whereMonth('created_at', '=', $month)
+            ->whereYear('created_at', $year)
+            ->sum('grand_total');
         $revenueMonth = Invoice::where('status', 'success')
             ->whereMonth('created_at', '=', $month)
             ->whereYear('created_at', $year)
@@ -30,11 +36,13 @@ class DashboardController extends Controller
         $revenueAll = Invoice::where('status', 'success')
             ->sum('grand_total');
 
+
         return view('admin.dashboard.index', compact(
             'pending',
             'success',
             'expired',
             'failed',
+            'revanueDay',
             'revenueMonth',
             'revenueYear',
             'revenueAll',

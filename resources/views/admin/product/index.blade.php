@@ -11,7 +11,11 @@
                         <h6 class="m-0 font-weight-bold text-uppercase"><i class="fa fa-shopping-bag mr-3"></i>product</h6>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.product.index') }}" method="get">
+                        <div class=" input-group mb-3">
+                            <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm text-uppercase"
+                            style="padding-top: 10px;"><i class="fa fa-plus-circle mr-3"></i>tambah</a>
+                        </div>
+                        {{-- <form action="{{ route('admin.product.index') }}" method="get">
                             <div class="form-group">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -24,7 +28,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </form> --}}
                         <div class="table-responsive">
                             <table class=" table table-bordered text-center" id="crudTable">
                                 <thead>

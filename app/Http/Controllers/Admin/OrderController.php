@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
 {
@@ -16,11 +17,24 @@ class OrderController extends Controller
     public function index()
     {
         // tampilkan order terbaru "latest" dan buat pengkondisian "when"
-        $invoices = Invoice::latest()->when(request()->q, function ($invoices) {
-            $invoices->where('invoice', 'like', '%' . request()->q . '%');
-        })->paginate(10);
+        // $invoices = Invoice::latest()->when(request()->q, function ($invoices) {
+        //     $invoices->where('invoice', 'like', '%' . request()->q . '%');
+        // })->paginate(10);
 
-        return view('admin.order.index', compact('invoices'));
+        // tampilkan dengan DataTables
+        if (request()->ajax()) {
+            $invoices = Invoice::all();
+            return DataTables::of($invoices)
+                ->addColumn('action', function ($data) {
+                    return '
+                        <a href="' . route('admin.order.show', $data->id)  . '" class=" btn btn-sm btn-info ml-4"><i class="fa fa-eye"></i></a>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make();
+        }
+
+        return view('admin.order.index');
     }
 
     /**

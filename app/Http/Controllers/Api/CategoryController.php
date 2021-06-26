@@ -27,7 +27,8 @@ class CategoryController extends Controller
             return response()->json([
                 'success'   => true,
                 'message'   => 'List Product By Category ' .  $category->name,
-                'product'   => $category->products()->latest()->get()
+                'product'   => $category->products()->latest()->get(),
+                'category' => $category
             ], 200);
         } else {
             return response()->json([
@@ -39,7 +40,7 @@ class CategoryController extends Controller
 
     public function categoryHome()
     {
-        $categories = Category::latest()->take(5)->get();
+        $categories = Category::latest()->take(6)->get();
         return response()->json([
             'status'        =>  true,
             'message'       =>  'List Data Category Home',

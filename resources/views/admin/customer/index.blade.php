@@ -11,7 +11,7 @@
                         <h6 class="m-0 font-weight-bold text-uppercase"><i class="fas fa-users mr-3"></i>Data Customers</h6>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.customer.index') }}" method="get">
+                        {{-- <form action="{{ route('admin.customer.index') }}" method="get">
                             <div class="form-group">
                                 <div class="input-group mb-3">
                                     <input type="text" name="q" class=" form-control" placeholder="Cari nama customer">
@@ -20,19 +20,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        <div class=" table-responsive">
-                            <table class=" table table-bordered">
+                        </form> --}}
+                        <div class=" table-responsive  justify-content-center">
+                            <table class=" table table-bordered" id="crudTable">
                                 <thead>
                                     <tr class=" text-center">
-                                        <th width="6%">No</th>
                                         <th>Nama Customer</th>
                                         <th>Email Customer</th>
                                         <th>Tanggal Bergabung</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($customers as $no => $customer)
+                                    {{-- @forelse ($customers as $no => $customer)
                                         <tr>
                                             <td>{{ ++$no + ($customers->currentPage()-1) * $customers->perPage() }}</td>
                                             <td>{{ $customer->name }}</td>
@@ -43,11 +42,11 @@
                                         <div class="alert alert-danger">
                                             <p>Data Tidak Ada !</p>
                                         </div>
-                                    @endforelse
+                                    @endforelse --}}
                                 </tbody>
                             </table>
                             <div class=" text-center">
-                                {{ $customers->links('vendor.pagination.bootstrap-4') }}
+                                {{-- {{ $customers->links('vendor.pagination.bootstrap-4') }} --}}
                             </div>
                         </div>
                     </div>
@@ -56,3 +55,36 @@
         </div>
     </div>
 @endsection
+
+@push('addon-script')
+     <script>
+         
+        //  DataTables
+      $(document).ready(function() {
+    
+          $('#crudTable').DataTable({  
+          processing: true,
+          serverSide: true,
+          ordering: true,
+          ajax: {
+            url: '{!! url()->current() !!}',
+          },
+          columns: [
+            { data: 'name', name: 'name' },
+            { data: 'email', name: 'email' },
+            { 
+                data: ('created_at'), name: ('created_at'),
+            },
+             
+            ],
+            
+             dom: 'lBfrtip',
+              buttons: [
+                'excel', 'pdf', 'copy', 'print'
+              ],
+              "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+  
+        });
+      });
+    </script>
+@endpush

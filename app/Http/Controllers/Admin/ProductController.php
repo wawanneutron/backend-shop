@@ -25,6 +25,7 @@ class ProductController extends Controller
         //     $products->where('title', 'like', '%' . request()->q . '%');
         // })->paginate(10);
 
+        // tampilkan dengan DataTables
         if (request()->ajax()) {
             $products = Product::with('category');
             return DataTables::of($products)
@@ -32,12 +33,12 @@ class ProductController extends Controller
                     return '
                     <div class="btn-group">
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">
+                            <button class="btn btn-primary btn-sm dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">
                                 Aksi
                             </button>
                             <div class="dropdown-menu">
-                                <a class="btn btn-primary" href="' . route('admin.product.edit', $item->id) . '"><i class="fas fa-pencil-alt"></i></a>
-                                <button onclick="Delete(this.id)" class=" btn btn-danger " id=" ' . $item->id . '">
+                                <a class="btn btn-sm btn-primary" href="' . route('admin.product.edit', $item->id) . '"><i class="fas fa-pencil-alt"></i></a>
+                                <button onclick="Delete(this.id)" class=" btn btn-sm btn-danger " id=" ' . $item->id . '">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -48,7 +49,7 @@ class ProductController extends Controller
                 ->addColumn('pic', function ($item) {
                     $url = asset("$item->image");
                     return '
-                    <img src=' . $url . ' border="0" width="40" class="img-rounded" align="center" />;
+                    <img src=' . $url . ' border="0" width="60" class="img-rounded" align="center" />
                 ';
                 })
                 ->rawColumns(['action', 'pic'])

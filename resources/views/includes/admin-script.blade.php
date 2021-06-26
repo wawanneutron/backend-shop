@@ -23,6 +23,8 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.22/b-1.6.5/b-flash-1.6.5/b-html5-1.6.5/b-print-1.6.5/fc-3.3.2/r-2.2.6/datatables.min.js"></script>
 
 
+
+
 <script>
     //sweetalert for success or error message
     @if(session()->has('success'))
