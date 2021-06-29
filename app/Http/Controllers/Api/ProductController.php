@@ -47,4 +47,17 @@ class ProductController extends Controller
             ], 404);
         }
     }
+
+    public function search($keyword)
+    {
+        $products = Product::where('title', 'LIKE', "%" . $keyword . "%")
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => 'pencarian product',
+            'product'   => $products,
+        ], 200);
+    }
 }
