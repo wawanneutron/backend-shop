@@ -38,6 +38,8 @@ Route::get('/products-home', [ProductController::class, 'productHome'])
     ->name('api.product.index');
 Route::get('/product/{slug?}', [ProductController::class, 'show'])
     ->name('api.product.show');
+Route::get('/product/search/{keyword}', [ProductController::class, 'search'])
+    ->name('api.product.search');
 
 // routs Cart
 Route::get('/cart', [CartController::class, 'index'])
