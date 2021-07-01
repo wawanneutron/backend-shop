@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function productAll()
     {
-        $products = Product::latest()->get();
+        $products = Product::inRandomOrder()->paginate(12);
 
         return response()->json([
             'success'   => true,
@@ -21,12 +22,22 @@ class ProductController extends Controller
 
     public function productHome()
     {
-        $products = Product::latest()->take(8)->get();
+        // ambil 8 data secara random dan ditampilkan di home
+        $products = Product::inRandomOrder()->take(8)->get();
+
+        // product paling banyak dibeli ("terlaris")
+        $data = Product::select('products.*', DB::raw('count(orders.product_id) as total'))
+            ->join('orders', 'orders.product_id', '=', 'products.id')
+            ->groupBy('orders.product_id')
+            ->orderBy('total', 'DESC')
+            ->take(4)
+            ->get();
 
         return response()->json([
             'success'   => true,
             'message'   => 'List Data Product',
-            'product'   => $products
+            'product'   => $products,
+            'terlaris'  => $data
         ], 200);
     }
 

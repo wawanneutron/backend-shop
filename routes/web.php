@@ -26,6 +26,7 @@ Route::prefix('admin')
 
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('admin.dashboard.index');
+
             Route::get('/customer', [CustomerController::class, 'index'])
                 ->name('admin.customer.index');
             Route::get('/profile', [ProfileController::class, 'index'])
