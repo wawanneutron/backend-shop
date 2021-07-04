@@ -13,10 +13,13 @@ class DashboardController extends Controller
     public function index()
     {
         // count invoice
-        $pending = Invoice::where('status', 'pending')->count();
-        $success = Invoice::where('status', 'success')->count();
-        $expired = Invoice::where('status', 'expired')->count();
-        $failed = Invoice::where('status', 'failed')->count();
+        $pending        = Invoice::where('status', 'pending')->count();
+        $paymentSuccess = Invoice::where('status', 'payment-success')->count();
+        $process        = Invoice::where('status', 'process')->count();
+        $shipping       = Invoice::where('status', 'shipping')->count();
+        $success        = Invoice::where('status', 'success')->count();
+        $expired        = Invoice::where('status', 'expired')->count();
+        $failed         = Invoice::where('status', 'failed')->count();
 
         // year and month
         $year  = date('Y');
@@ -45,10 +48,18 @@ class DashboardController extends Controller
             ->groupBy('YearMonth')
             ->orderBy('YearMonth', 'ASC')
             ->get();
-
+        /* looping dan jadikan int agar bisa dipakai ssebagai array di chart.js */
+        // hasil looping tampung kedalam array
         $dataRevanues = array();
+        $dataMonth    = array();
         foreach ($revanueEveryMonth as $key => $value) {
             array_push($dataRevanues, intval($value->revanue));
+            array_push($dataMonth, $value->YearMonth);
+        }
+        /* looping bulan dan ubah format tanggal */
+        $monthConvert = array();
+        foreach ($dataMonth as $date) {
+            array_push($monthConvert, date('F,Y', strtotime($date)));
         }
 
         // product paling banyak dibeli ("terlaris")
@@ -58,9 +69,11 @@ class DashboardController extends Controller
             ->orderBy('total', 'DESC')
             ->take(4)
             ->get();
-
         return view('admin.dashboard.index', compact(
             'pending',
+            'paymentSuccess',
+            'process',
+            'shipping',
             'success',
             'expired',
             'failed',
@@ -69,8 +82,8 @@ class DashboardController extends Controller
             'revenueYear',
             'revenueAll',
             'revanueEveryMonth',
-            // 'dataRevanues'
-            'dataRevanues'
+            'dataRevanues',
+            'monthConvert'
         ));
     }
 }
