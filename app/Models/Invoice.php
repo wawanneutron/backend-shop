@@ -33,4 +33,9 @@ class Invoice extends Model
     {
         return $this->belongsTo(City::class, 'city', 'city_id');
     }
+
+    public function gallery()
+    {
+        return $this->belongsTo(ProductGallery::class, 'id');
+    }
 }

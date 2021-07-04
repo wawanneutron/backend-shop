@@ -1,5 +1,5 @@
 @extends('layouts.app-dashboard', [
-    'title' => 'Orders'
+'title' => 'Orders'
 ])
 
 @section('content')
@@ -8,9 +8,10 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow">
                     <div class=" card-header">
-                        <h6 class="m6 font-weight-bold text-uppercase"><i class="fas fa-shopping-cart mr-3"></i>detail order</h6>
+                        <h6 class="m6 font-weight-bold text-uppercase"><i class="fas fa-shopping-cart mr-3"></i>detail order
+                        </h6>
                     </div>
-                    <div class="card-body" >
+                    <div class="card-body">
                         <table class="table table-bordered">
                             <tr>
                                 <td width="25%">
@@ -34,14 +35,16 @@
                             <tr>
                                 <td>Kurir/Service/Cost</td>
                                 <td>:</td>
-                                <td>{{ $invoice->courier }} / {{ $invoice->service }} / {{ moneyFormat($invoice->cost_courier) }}</td>
+                                <td>{{ $invoice->courier }} / {{ $invoice->service }} /
+                                    {{ moneyFormat($invoice->cost_courier) }}</td>
                             </tr>
                             <tr>
                                 <td> Provinsi </td>
                                 <td>:</td>
-                                <td>{{ $invoice->provinsi->name }}</td></td>
+                                <td>{{ $invoice->provinsi->name }}</td>
+                                </td>
                             </tr>
-                            <tr> 
+                            <tr>
                                 <td> Kab / Kota</td>
                                 <td>:</td>
                                 <td>{{ $invoice->kota->name }}</td>
@@ -50,15 +53,15 @@
                                 <td>Alamat lengkap Pengiriman</td>
                                 <td>:</td>
                                 <td>
-                                    {{ $invoice->address }} 
-                                </td>    
+                                    {{ $invoice->address }}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Total Pembelian</td>
                                 <td>:</td>
                                 <td>{{ moneyFormat($invoice->grand_total) }}</td>
                             </tr>
-                            <tr >
+                            <tr>
                                 <td>Status</td>
                                 <td>:</td>
                                 <td>{{ $invoice->status }}</td>
@@ -71,7 +74,7 @@
                                     <form action="{{ route('admin.order.update', $invoice->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <select class=" form-control" name="status" >
+                                        <select class=" form-control" name="status">
                                             <option disabled>--Pilih Status--</option>
                                             <option value="process">Barang Diproses</option>
                                         </select>
@@ -84,7 +87,7 @@
                                     <form action="{{ route('admin.order.update', $invoice->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <select class=" form-control" name="status" >
+                                        <select class=" form-control" name="status">
                                             <option disabled>--Pilih Status--</option>
                                             <option value="shipping">Barang Dikirim</option>
                                         </select>
@@ -98,10 +101,11 @@
                                     <form action="{{ route('admin.order.update', $invoice->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <select class=" form-control" name="status" >
+                                        <select class=" form-control" name="status">
                                             <option disabled>--Pilih Status--</option>
                                             <option value="success">Pengiriman success</option>
-                                            <input type="text" hidden value=" {{ $invoice->resi }} " name="resi" class=" form-control mt-3" placeholder="input resi">
+                                            <input type="text" hidden value=" {{ $invoice->resi }} " name="resi"
+                                                class=" form-control mt-3" placeholder="input resi">
                                         </select>
                                         <button type="submit" class="mt-4 btn btn-primary">Update</button>
                                     </form>
@@ -114,13 +118,15 @@
                     <div class="card-body">
                         <h5><i class="fa fa-shopping-cart mr-3 text-uppercase"></i> Detail Order</h5>
                         <hr>
-                        <table class=" table" style="border-style: solid !important;border-color: rgb(198, 206, 214) !important;">
+                        <table class=" table"
+                            style="border-style: solid !important;border-color: rgb(198, 206, 214) !important;">
                             <tbody>
                                 @foreach ($invoice->orders()->get() as $product)
                                     <tr style="background: #edf2f7;">
                                         <td class="b-none" width="25%">
                                             <div class="wrapper-image-cart">
-                                                <img src="{{ $product->image }}"  style="width: 100%;border-radius: .5rem">
+                                                <img src="{{ $product->gallery->image }}"
+                                                    style="width: 100%;border-radius: .5rem">
                                             </div>
                                         </td>
                                         <td class="b-none text-right">

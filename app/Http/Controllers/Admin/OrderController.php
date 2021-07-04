@@ -66,7 +66,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $invoice = Invoice::with(['provinsi', 'kota'])->findOrFail($id);
+        $invoice = Invoice::with(['provinsi', 'kota', 'gallery'])->findOrFail($id);
         return view('admin.order.show', compact('invoice'));
     }
 

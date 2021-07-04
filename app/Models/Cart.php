@@ -23,4 +23,9 @@ class Cart extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function gallery()
+    {
+        return $this->belongsTo(ProductGallery::class, 'product_id', 'products_id');
+    }
 }

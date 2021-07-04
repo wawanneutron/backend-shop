@@ -19,7 +19,7 @@ Route::prefix('admin')
 
             Route::resource('/category', CategoryController::class, ['as' => 'admin']);
             Route::resource('/product', ProductController::class, ['as' => 'admin']);
-            Route::resource('/gallery-product', GalleryController::class, ['as' => 'admin']);
+            Route::resource('/gallery', GalleryController::class, ['as' => 'admin']);
             Route::resource('/slider', SliderController::class, ['except' => ['show', 'create', 'edit', 'update'], 'as' => 'admin']);
             Route::resource('/user', UserController::class, ['as' => 'admin']);
             Route::resource('/order', OrderController::class, ['except' => ['destroy'], 'as' => 'admin']);

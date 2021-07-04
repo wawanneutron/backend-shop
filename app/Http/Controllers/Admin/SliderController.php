@@ -29,7 +29,7 @@ class SliderController extends Controller
     public function store(SliderRequst $request)
     {
         // upload image
-        $image = $request->file('image')->store('slider-image', 'public');
+        $image = $request->file('image')->store('slider-images', 'public');
         $slider = Slider::create([
             'image' => $image,
             'link'  => $request->link

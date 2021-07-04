@@ -29,13 +29,16 @@ class OrderController extends Controller
     {
         $invoice = Invoice::with(['provinsi', 'kota'])->where('customer_id', auth()->guard('api')->user()->id)
             ->where('snap_token', $snap_token)
-            ->latest()
             ->first();
+
         return response()->json([
             'success'   => true,
             'message'   => 'Detail Invoice :' . auth()->guard('api')->user()->name,
             'data'      => $invoice,
-            'product'   => $invoice->orders
+            'product'   => $invoice
+                ->orders()
+                ->with('product.gallery')
+                ->get()
         ], 200);
     }
 }

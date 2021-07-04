@@ -11,11 +11,11 @@
                         <h6 class="m-0 font-weight-bold text-uppercase"><i class="fas fa-folder mr-3"></i>gallery product</h6>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.gallery-product.index') }}" method="GET">
+                        <form action="{{ route('admin.gallery.index') }}" method="GET">
                             <div class="form-group">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('admin.gallery-product.create') }}" class="btn btn-primary btn-sm text-uppercase"
+                                        <a href="{{ route('admin.gallery.create') }}" class="btn btn-primary btn-sm text-uppercase"
                                         style="padding-top: 10px;"><i class="fa fa-plus-circle mr-3"></i>tambah</a>
                                     </div>
                                     <input type="text" name="q" class=" form-control" placeholder="cari berdasarkan nama gallery product">
@@ -42,9 +42,10 @@
                                             <td>
                                                 <img src="{{ $gallery->image }}" style="width: 50px">
                                             </td>
-                                            <td>{{ $gallery->productGallery->title }}</td>
                                             <td>
-                                                <a href="{{ route('admin.gallery-product.edit', $gallery->productGallery->id) }}" class=" btn btn-primary btn-sm"><i class="fa fa-pencil-alt "></i></a>
+                                                {{ $gallery->productGallery->title }}
+                                            </td>
+                                            <td>
                                                 <button onclick="Delete(this.id)" class="btn btn-sm btn-danger"
                                                 id="{{ $gallery->id }}">
                                                 <i class="fa fa-trash"></i>
@@ -87,7 +88,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ route("admin.gallery-product.index") }}/" + id,
+                        url: "{{ route("admin.gallery.index") }}/" + id,
                         data: {
                             "id": id,
                             "_token": token

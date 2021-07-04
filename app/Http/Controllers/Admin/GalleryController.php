@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
@@ -17,10 +18,12 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = ProductGallery::latest()
+        $galleries = ProductGallery::latest('product_galleries.created_at')
             ->with('productGallery')
             ->when(request()->q, function ($galleries) {
-                $galleries->where('products_id', 'like', '%' . request()->q . '%');
+                $galleries
+                    ->join('products', 'products.id', '=', 'product_galleries.products_id')
+                    ->where('products.title', 'like', '%' . request()->q . '%');
             })
             ->paginate(10);
 
@@ -48,17 +51,17 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        $image = $request->file('image')->store('product-image', 'public');
+        $image = $request->file('image')->store('product-images', 'public');
         $gallery = ProductGallery::create([
             'image'         => $image,
             'products_id'   => $request->product_id
         ]);
 
         if ($gallery) {
-            return redirect()->route('admin.gallery-product.index')
+            return redirect()->route('admin.gallery.index')
                 ->with(['success' => 'Gallery Product Berhasil Ditambahkan']);
         } else {
-            return redirect()->route('admin.gallery-product.index')
+            return redirect()->route('admin.gallery.index')
                 ->with(['error' => 'Gallery Product Gagal Ditambahkan']);
         }
     }
@@ -80,10 +83,7 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -92,10 +92,7 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -106,7 +103,11 @@ class GalleryController extends Controller
     public function destroy($id)
     {
         $gallery = ProductGallery::findOrFail($id);
-        Storage::delete('public/' . $gallery->image);
+
+        // jika menggunakan getImageAtribute di model gunakan hapus storege ini 
+        $galleryProductDelete = basename($gallery->image) . PHP_EOL;
+        Storage::disk('local')->delete('public/product-images/' . $galleryProductDelete);
+
         $gallery->delete();
 
         if ($gallery) {

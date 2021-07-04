@@ -47,7 +47,8 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         // upload image
-        $image = $request->file('image')->store('category-image', 'public');
+        $image = $request->file('image')->store('category-images', 'public');
+
         // save t DB
         $category = Category::create([
             'image' => $image,
@@ -98,23 +99,29 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, $id)
+    public function update(Request $request, Category $category)
     {
-        $category = Category::findOrFail($id);
+        $this->validate($request, [
+            'name' => 'unique:categories,name,' . $category->id,
+            'image' => 'image|mimes:jpeg,jpg,img,gif,png,webp|max:1000,'
+        ]);
         // check jika image kosong
-        if ($request->file('image') == null) {
+        if ($request->file('image') == '') {
             // update data tanpa image
+            $category = Category::findOrFail($category->id);
             $category->update([
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
             ]);
         } else {
             // hapus image lama
-            Storage::delete('public/' . $category->image);
+            $category_image_delete = basename($category->image) . PHP_EOL;
+            Storage::disk('local')->delete('public/category-images/' . $category_image_delete);
 
             // upload image baru
-            $image = $request->file('image')->store('category-image', 'public');
+            $image = $request->file('image')->store('category-images', 'public');
             // save db
+            $category = Category::findOrFail($category->id);
             $category->update([
                 'image' => $image,
                 'name' => $request->name,
@@ -144,7 +151,9 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        $image = Storage::delete('public/' . $category->image);
+        // jika menggunakan getImageAtribute di model gunakan hapus storege ini 
+        $category_image_delete = basename($category->image) . PHP_EOL;
+        Storage::disk('local')->delete('public/category-images/' . $category_image_delete);
 
         $category->delete();
 

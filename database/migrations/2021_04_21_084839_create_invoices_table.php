@@ -26,7 +26,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('province');
             $table->integer('city');
             $table->text('address');
-            $table->enum('status', ['pending', 'success', 'failed', 'expired']);
+            $table->enum('status', ['pending', 'payment-success', 'success', 'process', 'shipping', 'failed', 'expired']);
             $table->string('snap_token')->nullable();
             $table->bigInteger('grand_total');
             $table->timestamps();

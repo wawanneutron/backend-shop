@@ -17,4 +17,14 @@ class Order extends Model
     {
         return $this->belongsTo(Invoice::class);
     }
+
+    public function gallery()
+    {
+        return $this->belongsTo(ProductGallery::class, 'product_id', 'products_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 }

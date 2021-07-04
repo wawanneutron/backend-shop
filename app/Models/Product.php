@@ -30,6 +30,11 @@ class Product extends Model
         return $this->hasMany(ProductGallery::class, 'products_id', 'id');
     }
 
+    public function image_product()
+    {
+        return $this->belongsTo(ProductGallery::class, 'id', 'products_id');
+    }
+
     public function getImageAttribute($image)
     {
         return asset('storage/' . $image);

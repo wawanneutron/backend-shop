@@ -24,11 +24,12 @@ class ProductController extends Controller
         // $products = Product::latest()->when(request()->q, function ($products) {
         //     $products->where('title', 'like', '%' . request()->q . '%');
         // })->paginate(10);
+        // $products = Product::with('category', 'image_product')->get();
+        // dd($products);
 
-        // tampilkan dengan DataTables
         if (request()->ajax()) {
-            $products = Product::with('category');
-            return DataTables::of($products)
+            $products = Product::with(['category', 'image_product']);
+            return DataTables::eloquent($products)
                 ->addColumn('action', function ($item) {
                     return '
                     <div class="btn-group">
@@ -46,13 +47,10 @@ class ProductController extends Controller
                     </div>
                 ';
                 })
-                ->addColumn('pic', function ($item) {
-                    $url = asset("$item->image");
-                    return '
-                    <img src=' . $url . ' border="0" width="60" class="img-rounded" align="center" />
-                ';
+                ->addColumn('image', function ($item) {
+                    return $item->image_product->image ? '<img src="' . url($item->image_product->image) . ' " style="max-height: 55px;" />' : '';
                 })
-                ->rawColumns(['action', 'pic'])
+                ->rawColumns(['action', 'image'])
                 ->make();
         }
 
@@ -79,10 +77,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         // handle upload gambar
-        $image = $request->file('image')->store('product-image', 'public');
-        // save database
         $product = Product::create([
-            'image'         => $image,
             'title'         => $request->title,
             'slug'          => Str::slug($request->title),
             'category_id'   => $request->category_id,

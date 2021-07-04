@@ -27,7 +27,11 @@ class CategoryController extends Controller
             return response()->json([
                 'success'   => true,
                 'message'   => 'List Product By Category ' .  $category->name,
-                'product'   => $category->products()->latest()->get(),
+                'product'   => $category
+                    ->products()
+                    ->with('gallery')
+                    ->latest()
+                    ->get(),
                 'category' => $category
             ], 200);
         } else {

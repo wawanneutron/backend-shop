@@ -13,26 +13,19 @@
                     <div class="card-body">
                         <form action="{{ route('admin.product.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
-                                <label for="image">Gambar</label>
-                                <input type="file" name="image" id="image" class=" form-control @error('image') is-invalid @enderror">
-                                @error('image')
-                                    <div class="invalid-feedback">
-                                        <p>{{ $message }}</p>
+                           <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="title">Nama Product</label>
+                                        <input type="text" name="title" id="title" value="{{ old('title') }}" class=" form-control @error('title') is-invalid @enderror" placeholder="masukan nama product">
+                                        @error('title')
+                                            <div class="invalid-feedback">
+                                                <p>{{ $message }}</p>
+                                            </div>
+                                        @enderror
                                     </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Nama Product</label>
-                                <input type="text" name="title" id="title" value="{{ old('title') }}" class=" form-control @error('title') is-invalid @enderror" placeholder="masukan nama product">
-                                @error('title')
-                                    <div class="invalid-feedback">
-                                        <p>{{ $message }}</p>
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="category">Category</label>
                                         <select name="category_id" class=" form-control">
@@ -48,7 +41,9 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                           </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="weight">Berat</label>
                                         <input type="number" name="weight" value="{{ old('weight') }}" class=" form-control @error('weight') is-invalid @enderror" placeholder="Berat Product (gram)">
@@ -59,7 +54,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                 <div class="col-md-4">
+                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="stock">Stock Barang</label>
                                         <input type="number" name="stock" value="{{ old('stock') }}" class=" form-control @error('stock') is-invalid @enderror" placeholder="Stock Barang (per pcs)">

@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function productAll()
     {
-        $products = Product::inRandomOrder()->paginate(12);
+        $products = Product::with('gallery')->inRandomOrder()->paginate(12);
 
         return response()->json([
             'success'   => true,
@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function productHome()
     {
         // ambil 8 data secara random dan ditampilkan di home
-        $products = Product::inRandomOrder()->take(8)->get();
+        $products = Product::with('gallery')->inRandomOrder()->take(8)->get();
 
         // product paling banyak dibeli ("terlaris")
         $data = Product::select('products.*', DB::raw('count(orders.product_id) as total'))
@@ -61,7 +61,8 @@ class ProductController extends Controller
 
     public function search($keyword)
     {
-        $products = Product::where('title', 'LIKE', "%" . $keyword . "%")
+        $products = Product::with('gallery')
+            ->where('title', 'LIKE', "%" . $keyword . "%")
             ->orderBy('created_at', 'DESC')
             ->get();
 

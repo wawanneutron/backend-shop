@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -16,14 +17,14 @@ class CartController extends Controller
 
     public function index()
     {
-        $carts = Cart::with('product')
+        $carts = Cart::with('product.gallery')
             ->where('customer_id', auth()->user()->id)
             ->orderBy('created_at', 'desc')
             ->get();
         return response()->json([
             'success'   =>  true,
             'message'   =>  'List Data Cart',
-            'cart'      =>  $carts
+            'cart'      =>  $carts,
         ]);
     }
 
