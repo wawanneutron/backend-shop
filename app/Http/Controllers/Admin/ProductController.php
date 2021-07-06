@@ -7,6 +7,7 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductGallery;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -65,6 +66,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
+
         return view('admin.product.create', compact('categories'));
     }
 
@@ -77,6 +79,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         // handle upload gambar
+        $image = $request->file('image')->store('product-images', 'public');
+
         $product = Product::create([
             'title'         => $request->title,
             'slug'          => Str::slug($request->title),
@@ -88,7 +92,12 @@ class ProductController extends Controller
             'discount'      => $request->discount,
         ]);
 
-        if ($product) {
+        $image = ProductGallery::create([
+            'image'         => $image,
+            'products_id'    => $product->id
+        ]);
+
+        if ($product || $image) {
             return redirect()->route('admin.product.index')
                 ->with(['success' => 'Data Product Berhasil Disimpan']);
         } else {
@@ -145,12 +154,12 @@ class ProductController extends Controller
                 'discount'  =>  $request->discount,
             ]);
         } else {
-            // hapus image lama
-            Storage::delete('public' . $product->image);
-            // upload gambar yang baru
-            $image = $request->file('image')->store('product-image', 'public');
+            $image = $request->file('image')->store('product-images', 'public');
+            $product->image_product()->create([
+                'image'         =>  $image,
+                'products_id'   => $product->id
+            ]);
             $product->update([
-                'image'     => $image,
                 'title'     => $request->title,
                 'slug'      => Str::slug($request->title),
                 'content'   => $request->content,
@@ -177,8 +186,6 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        $image = Storage::delete('public/' .  $product->image);
-
         $product->delete();
 
         if ($product) {

@@ -27,6 +27,7 @@ class ProductController extends Controller
 
         // product paling banyak dibeli ("terlaris")
         $data = Product::select('products.*', DB::raw('count(orders.product_id) as total'))
+            ->with('gallery')
             ->join('orders', 'orders.product_id', '=', 'products.id')
             ->groupBy('orders.product_id')
             ->orderBy('total', 'DESC')
