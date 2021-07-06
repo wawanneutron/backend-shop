@@ -45,7 +45,7 @@ class ProductController extends Controller
 
     public function show($slug)
     {
-        $product = Product::with('gallery')->where('slug', $slug)->first();
+        $product = Product::with(['gallery', 'category'])->where('slug', $slug)->first();
         if ($product) {
             return response()->json([
                 'success'   => true,
