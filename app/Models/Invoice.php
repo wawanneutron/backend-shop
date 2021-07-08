@@ -11,7 +11,7 @@ class Invoice extends Model
 
     protected $fillable = [
         'invoice', 'customer_id', 'courier', 'service', 'cost_courier', 'weight',
-        'name', 'phone', 'province', 'city', 'address', 'status', 'resi', 'snap_token', 'grand_total'
+        'name', 'phone', 'province', 'city', 'address', 'note', 'status', 'resi', 'snap_token', 'grand_total'
     ];
 
     public function orders()
