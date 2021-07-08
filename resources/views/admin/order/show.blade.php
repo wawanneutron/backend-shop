@@ -57,6 +57,13 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Catatan Pembeli</td>
+                                <td>:</td>
+                                <td>
+                                    {{ $invoice->note }}
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Total Pembelian</td>
                                 <td>:</td>
                                 <td>{{ moneyFormat($invoice->grand_total) }}</td>
