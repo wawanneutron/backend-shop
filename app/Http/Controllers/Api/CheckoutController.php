@@ -57,6 +57,7 @@ class CheckoutController extends Controller
                 'province'      =>  $this->request->province,
                 'city'          =>  $this->request->city,
                 'address'       =>  $this->request->address,
+                'note'          =>  $this->request->note,
                 'grand_total'   =>  $this->request->grand_total,
                 'status'        =>  'Pending',
             ]);
@@ -67,7 +68,7 @@ class CheckoutController extends Controller
                     'invoice'       =>  $no_invoice,
                     'product_id'    =>  $cart->product_id,
                     'product_name'  =>  $cart->product->title,
-                    'image'         =>  $cart->product->image,
+                    // 'image'         =>  $cart->product->image,
                     'qty'           =>  $cart->quantity,
                     'price'         =>  $cart->price,
                 ]);
