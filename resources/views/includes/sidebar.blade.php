@@ -12,12 +12,14 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-
+    <div class="sidebar-heading">
+        Data Analitik
+    </div>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ Request::is('admin/dashboard*') ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>DASHBOARD</span></a>
+            <span>ANALYTICAL</span></a>
     </li>
 
     <!-- Divider -->
@@ -25,7 +27,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        PRODUK
+        Master
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -34,13 +36,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
             aria-controls="collapseTwo">
             <i class="fa fa-shopping-bag"></i>
-            <span>PRODUK</span>
+            <span>DATA MASTER</span>
         </a>
         <div id="collapseTwo"
             class="collapse {{ Request::is('admin/category*') ? ' show' : '' }} {{ Request::is('admin/product*') ? ' show' : '' }}"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">KATEGORI & PRODUK</h6>
+                <h6 class="collapse-header">Master Product</h6>
                 <a class="collapse-item {{ Request::is('admin/category*') ? ' active' : '' }}"
                     href="{{ route('admin.category.index') }}">KATEGORI</a>
                 <a class="collapse-item {{ Request::is('admin/product*') ? ' active' : '' }}"
@@ -48,41 +50,49 @@
                 <a class="collapse-item {{ Request::is('admin/gallery*') ? ' active' : '' }}"
                     href="{{ route('admin.gallery.index') }}"> GALLERY PRODUK</a>
             </div>
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Tambah Slider</h6>
+                <a class="collapse-item text-uppercase {{ Request::is('admin/slider*') ? ' active' : '' }}"
+                    href="{{ route('admin.slider.index') }}">Slider-Banner</a>
+            </div>
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Tambah Admin</h6>
+                <a class="collapse-item text-uppercase {{ Request::is('admin/user*') ? ' active' : '' }}"
+                    href="{{ route('admin.user.index') }}">Data Admin</a>
+            </div>
         </div>
     </li>
+    <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
-        ORDERS
+        Orders
     </div>
 
     <li class="nav-item {{ Request::is('admin/order*') ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('admin.order.index') }}">
             <i class="fas fa-shopping-cart"></i>
-            <span>ORDERS</span></a>
+            <span>DATA ORDERS</span></a>
     </li>
+    <hr class="sidebar-divider">
 
+    <div class="sidebar-heading">
+        customers
+    </div>
     <li class="nav-item {{ Request::is('admin/customer*') ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('admin.customer.index') }}">
             <i class="fas fa-users"></i>
-            <span>CUSTOMERS</span></a>
+            <span>DATA CUSTOMERS</span></a>
     </li>
+    <hr class="sidebar-divider">
 
-    <li class="nav-item {{ Request::is('admin/slider*') ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.slider.index') }}">
-            <i class="fas fa-laptop"></i>
-            <span>SLIDERS</span></a>
-    </li>
 
+    <div class="sidebar-heading">
+        Keamanan
+    </div>
     <li class="nav-item {{ Request::is('admin/profile*') ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('admin.profile.index') }}">
             <i class="fas fa-user-circle"></i>
-            <span>PROFILE</span></a>
-    </li>
-
-    <li class="nav-item {{ Request::is('admin/user*') ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.user.index') }}">
-            <i class="fas fa-users"></i>
-            <span>USERS</span></a>
+            <span>SCURITY</span></a>
     </li>
 
     <!-- Divider -->
