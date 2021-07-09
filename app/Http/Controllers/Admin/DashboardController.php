@@ -65,10 +65,12 @@ class DashboardController extends Controller
         // product paling banyak dibeli ("terlaris")
         $data = Product::select('products.*', DB::raw('count(orders.product_id) as total'))
             ->join('orders', 'orders.product_id', '=', 'products.id')
+            ->join('invoices', 'invoices.id', '=', 'orders.invoice_id')
+            ->where('invoices.status', 'success')
             ->groupBy('orders.product_id')
             ->orderBy('total', 'DESC')
-            ->take(4)
             ->get();
+        dump($data);
         return view('admin.dashboard.index', compact(
             'pending',
             'paymentSuccess',
