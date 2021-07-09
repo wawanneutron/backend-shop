@@ -69,6 +69,7 @@ class DashboardController extends Controller
             ->where('invoices.status', 'success')
             ->groupBy('orders.product_id')
             ->orderBy('total', 'DESC')
+            ->take(8)
             ->get();
         dump($data);
         return view('admin.dashboard.index', compact(
