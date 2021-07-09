@@ -71,7 +71,6 @@ class DashboardController extends Controller
             ->orderBy('total', 'DESC')
             ->take(8)
             ->get();
-        dump($data);
         return view('admin.dashboard.index', compact(
             'pending',
             'paymentSuccess',

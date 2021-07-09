@@ -36,43 +36,8 @@
     }
 
 
-    tbody {
-        color: #232946 !important;
-    }
-
-    .form-control:focus {
-        color: #6e707e;
-        background-color: #fff;
-        border-color: #375dce;
-        outline: 0;
-        box-shadow: none
-    }
-
-    .form-group label {
-        font-weight: bold
-    }
-
-    .card-body {
-        background-color: #eff0f3 !important;
-        color: #0f0e17;
-    }
-
-    #wrapper #content-wrapper {
-        background-color: #fffffe;
-        width: 100%;
-        overflow-x: hidden;
-    }
-
-    div.card {
-        background-color: #eff0f3 !important;
-    }
-
-    .card-header {
-        padding: .75rem 1.25rem;
-        margin-bottom: 0;
-        background-color: #232946;
-        border-bottom: 1px solid #e3e6f0;
-        color: white;
+    footer {
+        margin-top: 70px;
     }
 
 </style>
