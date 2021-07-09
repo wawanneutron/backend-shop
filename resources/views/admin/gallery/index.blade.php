@@ -32,7 +32,7 @@
                         <div class="table-responsive">
                             <table class=" table table-bordered text-center">
                                 <thead>
-                                    <tr class=" text-uppercase ">
+                                    <tr>
                                         <th style="width: 6%">No.</th>
                                         <th style="width: 40%">Image</th>
                                         <th>Nama Product</th>

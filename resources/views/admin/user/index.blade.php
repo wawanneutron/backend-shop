@@ -1,5 +1,5 @@
 @extends('layouts.app-dashboard', [
-    'title' => 'Data User'
+'title' => 'Data User'
 ])
 
 @section('content')
@@ -8,18 +8,22 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow">
                     <div class="card-header ">
-                        <h6 class="m-0 font-weight-bold text-uppercase"><i class="fas fa-users mr-3"></i>Data Users</h6>
+                        <h6 class="m-0 font-weight-bold text-uppercase"><i class="fas fa-users mr-3"></i>Data Users (Admin)
+                        </h6>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('admin.user.index') }}" method="get">
                             <div class="form-group mb-4">
                                 <div class=" input-group">
                                     <div class=" input-group-prepend">
-                                        <a href="{{ route('admin.user.create') }}" class=" btn  btn-primary"><i class="fa fa-plus-circle mr-2"></i>Tambah</a>
+                                        <a href="{{ route('admin.user.create') }}" class=" btn  btn-primary"><i
+                                                class="fa fa-plus-circle mr-2"></i>Tambah</a>
                                     </div>
-                                    <input type="text" name="q" class=" form-control" placeholder="Cari berdasarkan nama pengguna">
+                                    <input type="text" name="q" class=" form-control"
+                                        placeholder="Cari berdasarkan nama pengguna">
                                     <div class=" input-group-append">
-                                        <button type="submit " class=" btn btn-primary"><i class="fas fa-search mr-2"></i>Cari</button>
+                                        <button type="submit " class=" btn btn-primary"><i
+                                                class="fas fa-search mr-2"></i>Cari</button>
                                     </div>
                                 </div>
                             </div>
@@ -37,12 +41,14 @@
                                 <tbody>
                                     @forelse ($users as $no => $user)
                                         <tr>
-                                            <td>{{ ++$no + ($users->currentPage()-1) * $users->perPage()  }}</td>
+                                            <td>{{ ++$no + ($users->currentPage() - 1) * $users->perPage() }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-                                                <a href="{{ route('admin.user.edit', $user->id) }}" class=" btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                                <button onclick="Delete(this.id)" id="{{ $user->id }}" class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                <a href="{{ route('admin.user.edit', $user->id) }}"
+                                                    class=" btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                                <button onclick="Delete(this.id)" id="{{ $user->id }}"
+                                                    class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @empty
@@ -66,28 +72,28 @@
         var token = $("meta[name='csrf-token']").attr("content");
 
         swal({
-            title:  "APAKAH KAMU YAKIN ?",
-            text:   "INGIN MENGHAPUS DATA INI!",
-            icon:   "warning",
+            title: "APAKAH KAMU YAKIN ?",
+            text: "INGIN MENGHAPUS DATA INI!",
+            icon: "warning",
             buttons: [
                 'TIDAK',
                 'YA'
             ],
             dangerMode: true,
-        }).then(function (isConfirm) {
+        }).then(function(isConfirm) {
             if (isConfirm) {
-                
+
                 // ajak delete
                 jQuery.ajax({
-                    url: "{{ route("admin.user.index") }}/" + id,
+                    url: "{{ route('admin.user.index') }}/" + id,
                     data: {
                         "id": id,
                         "_token": token
                     },
                     type: 'DELETE',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status == "success") {
-                             swal({
+                            swal({
                                 title: 'BERHASIL!',
                                 text: 'DATA BERHASIL DIHAPUS!',
                                 icon: 'success',
@@ -95,10 +101,10 @@
                                 showConfirmButton: false,
                                 showCancelButton: false,
                                 buttons: false,
-                            }).then(function () {
+                            }).then(function() {
                                 location.reload();
                             });
-                            
+
                         } else {
                             swal({
                                 title: 'GAGAL!',
@@ -108,7 +114,7 @@
                                 showConfirmButton: false,
                                 showCancelButton: false,
                                 buttons: false,
-                            }).then(function () {
+                            }).then(function() {
                                 location.reload();
                             });
                         }
@@ -118,7 +124,7 @@
             } else {
                 return true;
             }
-            
+
         })
     }
 </script>

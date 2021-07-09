@@ -18,7 +18,27 @@
         background-color: #232946 !important;
     }
 
+    table {
+        color: #0f0e17 !important;
 
+    }
+
+    a.btn.btn-primary {
+        background-color: #232946 !important;
+    }
+
+    a.btn.btn-info {
+        background-color: #232946 !important;
+    }
+
+    button.btn.btn-primary {
+        background-color: #232946 !important;
+    }
+
+
+    tbody {
+        color: #232946 !important;
+    }
 
     .form-control:focus {
         color: #6e707e;

@@ -1,5 +1,5 @@
 @extends('layouts.app-dashboard', [
-    'title' => 'Kategori'
+'title' => 'Kategori'
 ])
 
 @section('content')
@@ -15,12 +15,15 @@
                             <div class="form-group">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('admin.category.create') }}" class="btn btn-primary btn-sm text-uppercase"
-                                        style="padding-top: 10px;"><i class="fa fa-plus-circle mr-3"></i>tambah</a>
+                                        <a href="{{ route('admin.category.create') }}"
+                                            class="btn btn-primary btn-sm text-uppercase" style="padding-top: 10px;"><i
+                                                class="fa fa-plus-circle mr-3"></i>tambah</a>
                                     </div>
-                                    <input type="text" name="q" class=" form-control" placeholder="cari berdasarkan nama kategori">
+                                    <input type="text" name="q" class=" form-control"
+                                        placeholder="cari berdasarkan nama kategori">
                                     <div class=" input-group-append">
-                                        <button type="submit" class=" btn btn-primary text-uppercase"><i class="fa fa-search mr-2"></i>cari</button>
+                                        <button type="submit" class=" btn btn-primary text-uppercase"><i
+                                                class="fa fa-search mr-2"></i>cari</button>
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +31,7 @@
                         <div class="table-responsive">
                             <table class=" table table-bordered text-center">
                                 <thead>
-                                    <tr class=" text-uppercase ">
+                                    <tr>
                                         <th style="width: 6%">No.</th>
                                         <th style="width: 40%">Image</th>
                                         <th>Category Name</th>
@@ -38,28 +41,29 @@
                                 <tbody>
                                     @forelse ($categories as $no => $category)
                                         <tr>
-                                            <td>{{ ++$no + ($categories->currentPage()-1) * $categories->perPage() }}</td>
+                                            <td>{{ ++$no + ($categories->currentPage() - 1) * $categories->perPage() }}</td>
                                             <td>
                                                 <img src="{{ $category->image }}" style="width: 50px">
                                             </td>
                                             <td>{{ $category->name }}</td>
                                             <td>
-                                                <a href="{{ route('admin.category.edit', $category->id) }}" class=" btn btn-primary btn-sm"><i class="fa fa-pencil-alt "></i></a>
+                                                <a href="{{ route('admin.category.edit', $category->id) }}"
+                                                    class=" btn btn-primary btn-sm"><i class="fa fa-pencil-alt "></i></a>
                                                 <button onclick="Delete(this.id)" class="btn btn-sm btn-danger"
-                                                id="{{ $category->id }}">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                                    id="{{ $category->id }}">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     @empty
                                         <div class="alert alert-danger">
-                                           <p> Data Belum Tersedia !</p>
+                                            <p> Data Belum Tersedia !</p>
                                         </div>
                                     @endforelse
                                 </tbody>
                             </table>
                             <div class="text-center">
-                                {{ $categories->links("vendor.pagination.bootstrap-4") }}
+                                {{ $categories->links('vendor.pagination.bootstrap-4') }}
                             </div>
                         </div>
                     </div>
@@ -67,7 +71,7 @@
             </div>
         </div>
     </div>
-<script>
+    <script>
         //ajax delete
         function Delete(id) {
             var id = id;
@@ -82,18 +86,18 @@
                     'YA'
                 ],
                 dangerMode: true,
-            }).then(function (isConfirm) {
+            }).then(function(isConfirm) {
                 if (isConfirm) {
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ route("admin.category.index") }}/" + id,
+                        url: "{{ route('admin.category.index') }}/" + id,
                         data: {
                             "id": id,
                             "_token": token
                         },
                         type: 'DELETE',
-                        success: function (response) {
+                        success: function(response) {
                             if (response.status == "success") {
                                 swal({
                                     title: 'BERHASIL!',
@@ -103,7 +107,7 @@
                                     showConfirmButton: false,
                                     showCancelButton: false,
                                     buttons: false,
-                                }).then(function () {
+                                }).then(function() {
                                     location.reload();
                                 });
                             } else {
@@ -115,7 +119,7 @@
                                     showConfirmButton: false,
                                     showCancelButton: false,
                                     buttons: false,
-                                }).then(function () {
+                                }).then(function() {
                                     location.reload();
                                 });
                             }
@@ -127,5 +131,5 @@
                 }
             })
         }
-</script>
+    </script>
 @endsection

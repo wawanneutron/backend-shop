@@ -1,18 +1,19 @@
 @extends('layouts.app-dashboard', [
-    'title' => 'Orders'
+'title' => 'Orders'
 ])
 
 @section('content')
-    <div class="container-fluid" >
+    <div class="container-fluid">
         <div class="row">
             {{-- widget resi --}}
             {{-- <div class="widgetCekPengiriman" data-kurir="jne"></div><script src="https://www.cekpengiriman.com/widget/widget_resi.js"></script> --}}
             <div class="col-md-12">
                 <div class="card border-0 shadow">
                     <div class=" card-header">
-                        <h6 class="m-0 font-weight-bold text-uppercase"><i class="fas fa-shopping-cart mr-3"></i>Data Order</h6>
+                        <h6 class="m-0 font-weight-bold text-uppercase"><i class="fas fa-shopping-cart mr-3"></i>Data Order
+                        </h6>
                     </div>
-                   
+
                     <div class="card-body">
                         {{-- <form action="{{ route('admin.order.index') }}" method="get">
                             <div class="form-group mb-4">
@@ -26,7 +27,7 @@
                         </form> --}}
                         <div class="table-responsive">
                             <table class=" table table table-hover" id="crudTable">
-                                <thead class=" table-primary text-uppercase text-center">
+                                <thead class=" table-primary  text-center">
                                     <tr>
                                         <th>No. Invoice</th>
                                         <th>Nama Lengkap</th>
@@ -67,8 +68,8 @@
     </div>
 
 
-<!-- Modal -->
-{{-- <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal -->
+    {{-- <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -114,40 +115,54 @@
 @endsection
 
 @push('addon-script')
-     <script>
+    <script>
         //  DataTables
-      $(document).ready(function() {
-          $('#crudTable').DataTable({  
-          processing: true,
-          serverSide: true,
-          ordering: true,
-          ajax: {
-            url: '{!! url()->current() !!}',
-          },
-          columns: [
-            { data: 'invoice', name: 'invoice' },
-            { data: 'name', name: 'name' },
-            {
-              data: 'grand_total', name: 'grand_total',
-              render: $.fn.dataTable.render.number( ',', '.', 2, 'Rp ' )
-            },
-            { data: 'resi', name: 'resi' },
-            { data: 'status', name: 'status' },
-             {
-              data: 'action',
-              name: 'action',
-              orderable: false,
-              searcable: false,
-            },
-            ],
-             dom: 'lBfrtip',
-              buttons: [
-                'excel', 'pdf', 'copy', 'print'
-              ],
-              "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-  
+        $(document).ready(function() {
+            $('#crudTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: true,
+                ajax: {
+                    url: '{!! url()->current() !!}',
+                },
+                columns: [{
+                        data: 'invoice',
+                        name: 'invoice'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'grand_total',
+                        name: 'grand_total',
+                        render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
+                    },
+                    {
+                        data: 'resi',
+                        name: 'resi'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searcable: false,
+                    },
+                ],
+                dom: 'lBfrtip',
+                buttons: [
+                    'excel', 'pdf', 'copy', 'print'
+                ],
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ]
+
+            });
         });
-      });
     </script>
 @endpush
-

@@ -32,7 +32,7 @@
                         <div class="table-responsive">
                             <table class=" table table-bordered text-center" id="crudTable">
                                 <thead>
-                                    <tr class=" text-uppercase ">
+                                    <tr>
                                         <th style="width: 20%">Image</th>
                                         <th>Nama Product</th>
                                         <th>Kategori</th>
