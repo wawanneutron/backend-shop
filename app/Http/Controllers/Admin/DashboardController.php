@@ -42,17 +42,6 @@ class DashboardController extends Controller
         $revenueAll = Invoice::where('status', 'success')
             ->sum('grand_total');
 
-        // product paling banyak dibeli ("terlaris")
-        $data = DB::table('products')
-            ->select('products.*', DB::raw('count(orders.product_id) as total'))
-            ->join('orders', 'orders.product_id', '=', 'products.id')
-            ->join('invoices', 'invoices.id', '=', 'orders.invoice_id')
-            ->where('invoices.status', 'success')
-            ->groupBy('orders.product_id')
-            ->orderBy('total', 'DESC')
-            ->take(8)
-            ->get();
-
         // pendapatan bulanan
         $revanueEveryMonth = DB::table('invoices')
             ->select(DB::raw("sum(grand_total) as revanue, date_format(created_at, '%Y-%m') as YearMonth"))

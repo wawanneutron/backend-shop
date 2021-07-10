@@ -26,7 +26,7 @@ class ProductController extends Controller
         $products = Product::with('gallery')->inRandomOrder()->take(8)->get();
 
         // product paling banyak dibeli ("terlaris")
-        $data = DB::table('products')
+        $data = Product::with('gallery')
             ->select('products.*', DB::raw('count(orders.product_id) as total'))
             ->join('orders', 'orders.product_id', '=', 'products.id')
             ->join('invoices', 'invoices.id', '=', 'orders.invoice_id')
