@@ -41,29 +41,10 @@ class DashboardController extends Controller
             ->sum('grand_total');
         $revenueAll = Invoice::where('status', 'success')
             ->sum('grand_total');
-        // pendapatan bulanan
-        $revanueEveryMonth = DB::table('invoices')
-            ->select(DB::raw("sum(grand_total) as revanue, date_format(created_at, '%Y-%m') as YearMonth"))
-            ->where('status', 'success')
-            ->groupBy('YearMonth')
-            ->orderBy('YearMonth', 'ASC')
-            ->get();
-        /* looping dan jadikan int agar bisa dipakai ssebagai array di chart.js */
-        // hasil looping tampung kedalam array
-        $dataRevanues = array();
-        $dataMonth    = array();
-        foreach ($revanueEveryMonth as $key => $value) {
-            array_push($dataRevanues, intval($value->revanue));
-            array_push($dataMonth, $value->YearMonth);
-        }
-        /* looping bulan dan ubah format tanggal */
-        $monthConvert = array();
-        foreach ($dataMonth as $date) {
-            array_push($monthConvert, date('F,Y', strtotime($date)));
-        }
 
         // product paling banyak dibeli ("terlaris")
-        $data = Product::select('products.*', DB::raw('count(orders.product_id) as total'))
+        $data = DB::table('products')
+            ->select('products.*', DB::raw('count(orders.product_id) as total'))
             ->join('orders', 'orders.product_id', '=', 'products.id')
             ->join('invoices', 'invoices.id', '=', 'orders.invoice_id')
             ->where('invoices.status', 'success')
@@ -71,6 +52,31 @@ class DashboardController extends Controller
             ->orderBy('total', 'DESC')
             ->take(8)
             ->get();
+
+        // pendapatan bulanan
+        $revanueEveryMonth = DB::table('invoices')
+            ->select(DB::raw("sum(grand_total) as revanue, date_format(created_at, '%Y-%m') as YearMonth"))
+            ->where('status', 'success')
+            ->groupBy('YearMonth')
+            ->orderBy('YearMonth', 'ASC')
+            ->get();
+        /* looping dan ambil revanue dan YearMonth lalu pisahkan ke array baru 
+        dan revanue jadikan int agar bisa dipakai ssebagai array di chart.js */
+        $newRevanues = array();
+        $newMonth    = array();
+
+        foreach ($revanueEveryMonth as $key => $value) {
+            array_push($newRevanues, intval($value->revanue));
+            array_push($newMonth, $value->YearMonth);
+        }
+        /* looping bulan dan ubah format tanggal */
+        $monthConvert = array();
+        foreach ($newMonth as $date) {
+            array_push($monthConvert, date('F,Y', strtotime($date)));
+        }
+
+
+
         return view('admin.dashboard.index', compact(
             'pending',
             'paymentSuccess',
@@ -84,7 +90,7 @@ class DashboardController extends Controller
             'revenueYear',
             'revenueAll',
             'revanueEveryMonth',
-            'dataRevanues',
+            'newRevanues',
             'monthConvert'
         ));
     }

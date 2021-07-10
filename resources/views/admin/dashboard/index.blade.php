@@ -232,7 +232,7 @@
         // Area Chart Example
         var ctx = document.getElementById("myAreaChart");
         // or using an object
-        var datasets = [@json($dataRevanues)];
+        var datasets = [@json($newRevanues)];
         var month = [@json($monthConvert)];
 
         var myLineChart = new Chart(ctx, {
@@ -326,7 +326,6 @@
 
         // Bar Chart Example
         var ctx = document.getElementById("myBarChart");
-
         var myBarChart = new Chart(ctx, {
             type: 'bar',
             data: {
