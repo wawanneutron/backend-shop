@@ -1,5 +1,5 @@
 @extends('layouts.app-dashboard', [
-    'title' => 'Data Customers'
+'title' => 'Data Customers'
 ])
 
 @section('content')
@@ -57,34 +57,42 @@
 @endsection
 
 @push('addon-script')
-     <script>
-         
+    <script>
         //  DataTables
-      $(document).ready(function() {
-    
-          $('#crudTable').DataTable({  
-          processing: true,
-          serverSide: true,
-          ordering: true,
-          ajax: {
-            url: '{!! url()->current() !!}',
-          },
-          columns: [
-            { data: 'name', name: 'name' },
-            { data: 'email', name: 'email' },
-            { 
-                data: ('created_at'), name: ('created_at'),
-            },
-             
-            ],
-            
-             dom: 'lBfrtip',
-              buttons: [
-                'excel', 'pdf', 'copy', 'print'
-              ],
-              "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-  
+        $(document).ready(function() {
+
+            $('#crudTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: true,
+                ajax: {
+                    url: '{!! url()->current() !!}',
+                },
+                columns: [{
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'at',
+                        name: 'created_at',
+                    },
+
+                ],
+
+                dom: 'lBfrtip',
+                buttons: [
+                    'excel', 'pdf', 'copy', 'print'
+                ],
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ]
+
+            });
         });
-      });
     </script>
 @endpush
