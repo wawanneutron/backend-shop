@@ -15,6 +15,9 @@
                     </div>
 
                     <div class="card-body">
+                        <a href="" class=" btn btn-secondary mb-4 mr-2" style=" background: #b8c1ec;"> <i
+                                class="fas fa-print mr-2"></i>Print</a>
+                        <a href="" class=" btn btn-primary mb-4"><i class="fas fa-file-pdf mr-2"></i>Cetak pdf</a>
                         {{-- <form action="{{ route('admin.order.index') }}" method="get">
                             <div class="form-group mb-4">
                                 <div class="input-group">
@@ -66,52 +69,50 @@
             </div>
         </div>
     </div>
-
-
     <!-- Modal -->
     {{-- <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" >
-        <label for="category">Status</label>
-        <select name="category_id" class=" form-control">
-            <option>-- PILIH STATUS --</option>
-            <option value="process">Sedang Diproses</option>
-            <option value="pengiriman" v-model="resi" @change="inputResi">Sedang Dikirim</option>
-        </select>
-         <template v-if="status  == 'SHIPPING'">
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="product-title mb-2">Input Resi</div>
-            <input
-                type="text"
-                class="form-control"
-                name="resi"
-                v-model="resi"
-            />
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="col-12 col-md-4 col-md-4 col-lg-3 mt-2">
-            <button
-                type="submit"
-                class="btn btn-success mt-4 btn-block"
-            >
-                Update Resi
-            </button>
+            <div class="modal-body" >
+                <label for="category">Status</label>
+                <select name="category_id" class=" form-control">
+                    <option>-- PILIH STATUS --</option>
+                    <option value="process">Sedang Diproses</option>
+                    <option value="pengiriman" v-model="resi" @change="inputResi">Sedang Dikirim</option>
+                </select>
+                <template v-if="status  == 'SHIPPING'">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="product-title mb-2">Input Resi</div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="resi"
+                        v-model="resi"
+                    />
+                    </div>
+                    <div class="col-12 col-md-4 col-md-4 col-lg-3 mt-2">
+                    <button
+                        type="submit"
+                        class="btn btn-success mt-4 btn-block"
+                    >
+                        Update Resi
+                    </button>
+                    </div>
+                </template>
             </div>
-        </template>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> --}}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+    </div> --}}
 @endsection
 
 @push('addon-script')
@@ -153,14 +154,14 @@
                         searcable: false,
                     },
                 ],
-                dom: 'lBfrtip',
-                buttons: [
-                    'excel', 'pdf', 'copy', 'print'
-                ],
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
-                ]
+                // dom: 'lBfrtip',
+                // buttons: [
+                //     'excel', 'pdf', 'copy', 'print'
+                // ],
+                // "lengthMenu": [
+                //     [10, 25, 50, -1],
+                //     [10, 25, 50, "All"]
+                // ]
 
             });
         });

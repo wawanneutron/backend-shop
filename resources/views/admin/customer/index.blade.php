@@ -11,6 +11,8 @@
                         <h6 class="m-0 font-weight-bold text-uppercase"><i class="fas fa-users mr-3"></i>Data Customers</h6>
                     </div>
                     <div class="card-body">
+                        <a href="" class=" btn btn-primary mb-4 mr-2"> <i class="fas fa-print mr-2"></i>Print</a>
+                        <a href="" class=" btn btn-primary mb-4"><i class="fas fa-file-pdf mr-2"></i>Cetak pdf</a>
                         {{-- <form action="{{ route('admin.customer.index') }}" method="get">
                             <div class="form-group">
                                 <div class="input-group mb-3">
@@ -83,14 +85,14 @@
 
                 ],
 
-                dom: 'lBfrtip',
-                buttons: [
-                    'excel', 'pdf', 'copy', 'print'
-                ],
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
-                ]
+                // dom: 'lBfrtip',
+                // buttons: [
+                //     'excel', 'pdf', 'copy', 'print'
+                // ],
+                // "lengthMenu": [
+                //     [10, 25, 50, -1],
+                //     [10, 25, 50, "All"]
+                // ]
 
             });
         });

@@ -11,10 +11,11 @@
                         <h6 class="m-0 font-weight-bold text-uppercase"><i class="fa fa-shopping-bag mr-3"></i>product</h6>
                     </div>
                     <div class="card-body">
-                        <div class=" input-group mb-3">
-                            <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm text-uppercase"
-                                style="padding-top: 10px;"><i class="fa fa-plus-circle mr-3"></i>tambah</a>
-                        </div>
+                        <a href="" class=" btn btn-primary mb-4 mr-2"> <i class="fas fa-print mr-2"></i>Print</a>
+                        <a href="" class=" btn btn-primary mb-4"><i class="fas fa-file-pdf mr-2"></i>Cetak pdf</a>
+                        <a href="{{ route('admin.product.create') }}" class="btn btn-primary mb-4 ml-2 "><i
+                                class="fa fa-plus-circle  mr-3"></i>Tambah Data</a>
+
                         {{-- <form action="{{ route('admin.product.index') }}" method="get">
                             <div class="form-group">
                                 <div class="input-group mb-3">
@@ -118,14 +119,14 @@
                         searcable: false,
                     },
                 ],
-                dom: 'lBfrtip',
-                buttons: [
-                    'excel', 'pdf', 'copy', 'print'
-                ],
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
-                ]
+                // dom: 'lBfrtip',
+                // buttons: [
+                //     'excel', 'pdf', 'copy', 'print'
+                // ],
+                // "lengthMenu": [
+                //     [10, 25, 50, -1],
+                //     [10, 25, 50, "All"]
+                // ]
 
             });
         });
