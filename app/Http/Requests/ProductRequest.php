@@ -30,6 +30,7 @@ class ProductRequest extends FormRequest
             'content' => 'required',
             'weight' => 'required|integer',
             'price' => 'required|integer',
+            'stock' => 'required'
         ];
     }
 }

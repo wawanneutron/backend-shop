@@ -15,8 +15,7 @@
                     </div>
 
                     <div class="card-body">
-                        <a href="" class=" btn btn-secondary mb-4 mr-2" style=" background: #b8c1ec;"> <i
-                                class="fas fa-print mr-2"></i>Print</a>
+                        <a href="" class=" btn btn-primary mb-4 mr-2"> <i class="fas fa-print mr-2"></i>Print</a>
                         <a href="" class=" btn btn-primary mb-4"><i class="fas fa-file-pdf mr-2"></i>Cetak pdf</a>
                         {{-- <form action="{{ route('admin.order.index') }}" method="get">
                             <div class="form-group mb-4">

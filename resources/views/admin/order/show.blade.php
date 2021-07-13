@@ -6,12 +6,20 @@
     <div class="container-fluid">
         <div class="row" id="app">
             <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.order.index') }}">Data Orders</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Detail</li>
+                    </ol>
+                </nav>
                 <div class="card border-0 shadow">
                     <div class=" card-header">
                         <h6 class="m6 font-weight-bold text-uppercase"><i class="fas fa-shopping-cart mr-3"></i>detail order
                         </h6>
                     </div>
                     <div class="card-body">
+                        <a href="" class=" btn btn-primary mb-4 mr-2"> <i class="fas fa-print mr-2"></i>Print</a>
+                        <a href="" class=" btn btn-primary mb-4"><i class="fas fa-file-pdf mr-2"></i>Cetak pdf</a>
                         <table class="table table-bordered">
                             <tr>
                                 <td width="25%">

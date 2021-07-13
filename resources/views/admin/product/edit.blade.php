@@ -6,6 +6,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.product.index') }}">Product</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit data</li>
+                    </ol>
+                </nav>
                 <div class="card border-0 shadow">
                     <div class="card-header">
                         <h6 class="m-0 font-weight-bold text-uppercase"><i class="fa fa-shopping-bag mr-3"></i>Edit Product
