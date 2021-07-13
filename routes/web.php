@@ -31,5 +31,9 @@ Route::prefix('admin')
                 ->name('admin.customer.index');
             Route::get('/profile', [ProfileController::class, 'index'])
                 ->name('admin.profile.index');
+            Route::get('/report-product', [ReportController::class, 'cetak_pdf_product'])
+                ->name('admin.cetak.product');
+            Route::get('/report-orders', [ReportController::class, 'cetak_pdf_orders'])
+                ->name('admin.cetak.orders');
         });
     });

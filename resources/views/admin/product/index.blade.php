@@ -11,8 +11,8 @@
                         <h6 class="m-0 font-weight-bold text-uppercase"><i class="fa fa-shopping-bag mr-3"></i>product</h6>
                     </div>
                     <div class="card-body">
-                        <a href="" class=" btn btn-primary mb-4 mr-2"> <i class="fas fa-print mr-2"></i>Print</a>
-                        <a href="" class=" btn btn-primary mb-4"><i class="fas fa-file-pdf mr-2"></i>Cetak pdf</a>
+                        <a href="{{ route('admin.cetak.product') }}" class=" btn btn-primary mb-4"><i
+                                class="fas fa-file-pdf mr-2"></i>Cetak pdf</a>
                         <a href="{{ route('admin.product.create') }}" class="btn btn-primary mb-4 ml-2 "><i
                                 class="fa fa-plus-circle  mr-3"></i>Tambah Data</a>
 
