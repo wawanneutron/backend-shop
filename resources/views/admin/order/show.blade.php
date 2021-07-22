@@ -18,7 +18,8 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <a href="" class=" btn btn-primary mb-4"><i class="fas fa-file-pdf mr-2"></i>Cetak pdf</a>
+                        <a href="{{ route('admin.cetak.detail.order', $invoice->id) }}" class=" btn btn-primary mb-4"><i
+                                class="fas fa-file-pdf mr-2"></i>Cetak pdf</a>
                         <table class="table table-bordered">
                             <tr>
                                 <td width="25%">
@@ -67,7 +68,7 @@
                                 <td>Catatan Pembeli</td>
                                 <td>:</td>
                                 <td>
-                                    {{ $invoice->note }}
+                                    {{ $invoice->note ? $invoice->note : '-' }}
                                 </td>
                             </tr>
                             <tr>
