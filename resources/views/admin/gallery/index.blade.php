@@ -12,7 +12,10 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.gallery.index') }}" method="GET">
+                        <a href="{{ route('admin.gallery.create') }}" class="btn btn-primary btn-sm mb-4"
+                            style="padding-top: 10px;"><i class="fa fa-plus-circle mr-3"></i>Tambah Gambar
+                        </a>
+                        {{-- <form action="{{ route('admin.gallery.index') }}" method="GET">
                             <div class="form-group">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -28,19 +31,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </form> --}}
                         <div class="table-responsive">
-                            <table class=" table table-bordered text-center">
+                            <table class=" table table-bordered text-center" id="crudTable">
                                 <thead>
                                     <tr>
-                                        <th style="width: 6%">No.</th>
                                         <th style="width: 40%">Image</th>
                                         <th>Nama Product</th>
                                         <th style="width: 15%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($galleries as $no => $gallery)
+                                    {{-- @forelse ($galleries as $no => $gallery)
                                         <tr>
                                             <td>{{ ++$no + ($galleries->currentPage() - 1) * $galleries->perPage() }}</td>
                                             <td>
@@ -60,19 +62,50 @@
                                         <div class="alert alert-danger">
                                             <p> Data Belum Tersedia !</p>
                                         </div>
-                                    @endforelse
+                                    @endforelse --}}
                                 </tbody>
                             </table>
-                            <div class="text-center">
+                            {{-- <div class="text-center">
                                 {{ $galleries->links('vendor.pagination.bootstrap-4') }}
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@push('addon-script')
     <script>
+        //  DataTables
+        $(document).ready(function() {
+            $('#crudTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: true,
+                ajax: {
+                    url: '{!! url()->current() !!}',
+                },
+                columns: [{
+                        data: 'image',
+                        name: 'image',
+                    },
+                    {
+                        data: 'product.title',
+                        name: 'product.title'
+                    },
+
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searcable: false,
+                    },
+                ],
+            });
+        });
+
         //ajax delete
         function Delete(id) {
             var id = id;
@@ -133,4 +166,4 @@
             })
         }
     </script>
-@endsection
+@endpush

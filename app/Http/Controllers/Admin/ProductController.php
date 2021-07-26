@@ -145,6 +145,7 @@ class ProductController extends Controller
 
         if ($request->file('image') == null) {
             $product->update([
+                'category_id' => $request->category_id,
                 'title'     => $request->title,
                 'slug'      => Str::slug($request->title),
                 'content'   => $request->content,
@@ -160,6 +161,7 @@ class ProductController extends Controller
                 'products_id'   => $product->id
             ]);
             $product->update([
+                'category_id' => $request->category_id,
                 'title'     => $request->title,
                 'slug'      => Str::slug($request->title),
                 'content'   => $request->content,

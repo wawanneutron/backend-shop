@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-
+use Yajra\DataTables\Facades\DataTables;
 
 class GalleryController extends Controller
 {
@@ -20,17 +20,37 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = ProductGallery::latest('product_galleries.created_at')
-            ->with('product')
-            ->when(request()->q, function ($galleries) {
-                $galleries
-                    ->join('products', 'products.id', '=', 'product_galleries.products_id')
-                    ->where('products.title', 'like', '%' . request()->q . '%');
-            })
-            ->paginate(10);
+        // $galleries = ProductGallery::latest('product_galleries.created_at')
+        //     ->with('product')
+        //     ->when(request()->q, function ($galleries) {
+        //         $galleries
+        //             ->join('products', 'products.id', '=', 'product_galleries.products_id')
+        //             ->where('products.title', 'like', '%' . request()->q . '%');
+        //     })
+        //     ->paginate(10);
 
+        if (request()->ajax()) {
+            $gallery = ProductGallery::with(['product']);
+            return DataTables::eloquent($gallery)
+                ->addColumn('action', function ($item) {
+                    return '
+                    <div class="btn-group">
+                        <div class="dropdown">
+                            <button onclick="Delete(this.id)" class=" btn btn-sm btn-danger " id=" ' . $item->id . '">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                        </div>
+                    </div>
+                ';
+                })
+                ->addColumn('image', function ($item) {
+                    return $item->image ? '<img src="' . url($item->image) . ' " style="max-height: 55px;" />' : '';
+                })
+                ->rawColumns(['action', 'image'])
+                ->make();
+        }
 
-        return view('admin.gallery.index', compact('galleries'));
+        return view('admin.gallery.index');
     }
 
     /**
