@@ -29,7 +29,7 @@ class ReportController extends Controller
 
     public function cetak_detail_order($id)
     {
-        $invoice = Invoice::with(['provinsi', 'kota', 'gallery'])->findOrFail($id);
+        $invoice = Invoice::with(['provinsi', 'kota', 'gallery', 'customer'])->findOrFail($id);
         $pdf = PDF::loadView('admin.laporan.laporan-detail-order', ['invoice' => $invoice]);
         return $pdf->download('detail-orders.pdf');
     }

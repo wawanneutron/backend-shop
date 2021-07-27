@@ -36,6 +36,20 @@
                                 <td>{{ $invoice->invoice }}</td>
                             </tr>
                             <tr>
+                                <td width="25%">
+                                    Nama Pembeli
+                                </td>
+                                <td width="1%">:</td>
+                                <td>{{ $invoice->customer->name }}</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">
+                                    Email
+                                </td>
+                                <td width="1%">:</td>
+                                <td>{{ $invoice->customer->email }}</td>
+                            </tr>
+                            <tr>
                                 <td>No. Telp/WA</td>
                                 <td>:</td>
                                 <td>{{ $invoice->phone }}</td>
