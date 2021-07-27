@@ -35,7 +35,9 @@ Route::get('/categories-home', [CategoryController::class, 'categoryHome'])
 Route::get('/products', [ProductController::class, 'productAll'])
     ->name('api.product.index');
 Route::get('/products-home', [ProductController::class, 'productHome'])
-    ->name('api.product.index');
+    ->name('api.product.home');
+Route::get('/products-terlaris', [ProductController::class, 'terlaris'])
+    ->name('api.product.terlaris');
 Route::get('/product/{slug?}', [ProductController::class, 'show'])
     ->name('api.product.show');
 Route::get('/product/search/{keyword}', [ProductController::class, 'search'])

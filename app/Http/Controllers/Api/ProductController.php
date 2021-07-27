@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function productAll()
     {
-        $products = Product::with('gallery')->inRandomOrder()->paginate(12);
+        $products = Product::with('gallery')->inRandomOrder()->simplePaginate(12);
 
         return response()->json([
             'success'   => true,
@@ -20,11 +20,8 @@ class ProductController extends Controller
         ], 200);
     }
 
-    public function productHome()
+    public function terlaris()
     {
-        // ambil 8 data secara random dan ditampilkan di home
-        $products = Product::with('gallery')->inRandomOrder()->take(8)->get();
-
         // product paling banyak dibeli ("terlaris")
         $data = Product::with('gallery')
             ->select('products.*', DB::raw('count(orders.product_id) as total'))
@@ -38,9 +35,20 @@ class ProductController extends Controller
 
         return response()->json([
             'success'   => true,
-            'message'   => 'List Data Product',
-            'product'   => $products,
+            'message'   => 'List Data Product Terlaris',
             'terlaris'  => $data
+        ], 200);
+    }
+
+    public function productHome()
+    {
+        // ambil 8 data secara random dan ditampilkan di home
+        $products = Product::with('gallery')->inRandomOrder()->take(8)->get();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => 'List Data Product Home',
+            'product'   => $products,
         ], 200);
     }
 
