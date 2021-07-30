@@ -135,7 +135,7 @@
                                                 style="font-size:0px;padding:10px 25px;padding-top:30px;padding-right:25px;padding-bottom:30px;padding-left:25px;word-break:break-word;">
                                                 <div
                                                     style="font-family:Playfair Display, Times New Roman, serif;font-size:30px;font-weight:bold;line-height:1;text-align:center;color:#071c4d;">
-                                                    Selesaikan Pembayaran Anda</div>
+                                                    Pembayaran Success!</div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -212,9 +212,11 @@
                                                                 style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
                                                                 <div
                                                                     style="font-family:Assistant, Helvetica, Arial, sans-serif;font-size:18px;line-height:20px;text-align:left;color:#071c4d;">
-                                                                    Hi, {{ $data_transaction->name }} <br><br> Ini
-                                                                    adalah Invoice pesanan kamu yang harus anda
-                                                                    bayarkan.</div>
+                                                                    Hi, {{ $data_transaction_success->name }} <br><br>
+                                                                    Terimakasih kamu sudah melakukan pembayaran,
+                                                                    dan pembayaran sudah terverifikasi,
+                                                                    berikut adalah detail pembelian
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -226,12 +228,12 @@
                                                                     <tr>
                                                                         <td><strong>Invoice</strong></td>
                                                                         <td style="text-align: right; font-weight:500;">
-                                                                            {{ $data_transaction->invoice }}
+                                                                            {{ $data_transaction_success->invoice }}
                                                                     </tr>
                                                                     <tr>
                                                                         <td><strong>Total</strong></td>
                                                                         <td style="text-align: right; font-weight:500;">
-                                                                            {{ moneyFormat($data_transaction->grand_total) }}
+                                                                            {{ moneyFormat($data_transaction_success->grand_total) }}
                                                                     </tr>
                                                                 </table>
                                                             </td>
@@ -245,7 +247,7 @@
                                                                     <tr>
                                                                         <td colspan="3">Product Order</td>
                                                                     </tr>
-                                                                    @foreach ($data_transaction->orders as $item)
+                                                                    @foreach ($data_transaction_success->orders as $item)
                                                                         <tr>
                                                                             <td><strong> {{ $item->product_name }}
                                                                                 </strong></td>
@@ -262,7 +264,7 @@
                                                                 style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
                                                                 <div
                                                                     style="font-family:Assistant, Helvetica, Arial, sans-serif;font-size:18px;line-height:20px;text-align:left;color:#071c4d;">
-                                                                    Verifikasi akan dilakukan otomatis oleh sistem.
+                                                                    Pembayaran sudah terverifikasi
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -278,9 +280,9 @@
                                                                                 role="presentation"
                                                                                 style="border:none;border-radius:10px;cursor:auto;mso-padding-alt:10px 25px;background:#E87B17;"
                                                                                 valign="middle">
-                                                                                <a href="http://localhost:8080/customer/order/{{ $data_transaction->snap_token }}"
+                                                                                <a href="http://localhost:8080/customer/order/{{ $data_transaction_success->snap_token }}"
                                                                                     style="display:inline-block;background:#E87B17;color:#ffffff;font-family:Assistant, Helvetica, Arial, sanf-serif;font-size:18px;font-weight:400;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:10px;">
-                                                                                    Check Detail </a>
+                                                                                    Lihat Transaksi </a>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>

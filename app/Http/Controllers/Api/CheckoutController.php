@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Mail\NotifCheckoutPayment;
 use App\Mail\NotificationCheckout;
+use App\Mail\NotificationCheckoutSuccess;
 use App\Models\Cart;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
@@ -80,8 +81,6 @@ class CheckoutController extends Controller
                 ]);
             }
 
-
-
             /* Buat transaksi ke Midtrans,
             kemudian save snap tokennya ke databse */
             $payload = [
@@ -105,6 +104,11 @@ class CheckoutController extends Controller
             $invoice->save();
 
             $this->response['snap_token'] = $snapToken;
+
+            /* kirim notifikasi email (detail pembayaran) ke customer */
+            // data transaction
+            $data_transaction   = Invoice::with(['customer', 'orders'])->where('invoice', $invoice->invoice)->first();
+            Mail::to($data_transaction->customer->email)->send(new NotificationCheckout($data_transaction));
         });
         return response()->json([
             'success' => true,
@@ -129,44 +133,44 @@ class CheckoutController extends Controller
             ], 403);
         }
         $transactionStatus    =   $notification->transaction_status;
-        $type                 =   $notification->payment_type;
+        // $type                 =   $notification->payment_type;
         $orderId              =   $notification->order_id; //order_id = invoice
-        $fraud                =   $notification->fraud_status;
+        // $fraud                =   $notification->fraud_status;
 
         // data transaction
         $data_transaction   = Invoice::with(['customer', 'orders'])->where('invoice', $orderId)->first();
 
-        if ($transactionStatus == 'capture') {
-            /* 
-            For credit card transaction,
-            we need to check whether transaction is challenge by FDS or not 
-            */
-            if ($type == 'credit_card') {
+        // if ($transactionStatus == 'capture') {
+        //     /* 
+        //     For credit card transaction,
+        //     we need to check whether transaction is challenge by FDS or not 
+        //     */
+        //     if ($type == 'credit_card') {
 
-                if ($fraud == 'challenge') {
-                    // update invoice to pending
-                    $data_transaction->update([
-                        'status' => 'pending'
-                    ]);
-                } else {
-                    // update invoice to payment-success
-                    $data_transaction->update([
-                        'status' => 'payment-success'
-                    ]);
-                }
-            }
-        } elseif ($transactionStatus == 'settlement') {
+        //         if ($fraud == 'challenge') {
+        //             // update invoice to pending
+        //             $data_transaction->update([
+        //                 'status' => 'pending'
+        //             ]);
+        //         } else {
+        //             // update invoice to payment-success
+        //             $data_transaction->update([
+        //                 'status' => 'payment-success'
+        //             ]);
+        //         }
+        //     }
+        // } 
+        if ($transactionStatus == 'settlement') {
             // update invoice to payment-success
             $data_transaction->update([
                 'status' => 'payment-success'
             ]);
+            Mail::to($data_transaction->customer->email)->send(new NotificationCheckoutSuccess($data_transaction));
         } elseif ($transactionStatus == 'pending') {
             // update invoice to pending
             $data_transaction->update([
                 'status' => 'pending'
             ]);
-
-            Mail::to($data_transaction->customer->email)->send(new NotificationCheckout($data_transaction));
         } elseif ($transactionStatus == 'deny') {
             // update invoice to failed
             $data_transaction->update([
