@@ -71,7 +71,7 @@
                             </table>
                             {{-- <div class="text-center">
                                 {{ $products->links('vendor.pagination.bootstrap-4') }}
-                            </div> --}}
+                                                </div> --}}
                         </div>
                     </div>
                 </div>

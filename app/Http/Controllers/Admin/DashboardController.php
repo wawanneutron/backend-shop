@@ -26,7 +26,7 @@ class DashboardController extends Controller
         $month = date('m');
         $day   = date('d');
         // statistic revenue
-        $revanueDay = Invoice::where('status', 'success')
+        $revanueDay = Invoice::where('status', 'payment-success')
             ->whereDay('created_at', '=',  $day)
             ->whereMonth('created_at', '=', $month)
             ->whereYear('created_at', $year)

@@ -35,6 +35,11 @@ class Product extends Model
         return $this->belongsTo(ProductGallery::class, 'id', 'products_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'product_id', 'id');
+    }
+
     public function getImageAttribute($image)
     {
         return asset('storage/' . $image);

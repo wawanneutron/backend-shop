@@ -1,62 +1,78 @@
 @extends('layouts.auth', ['title' => 'Login'])
 
 @section('content')
+    <!-- Navbar -->
+    <nav class="navbar navbar-login navbar-expand navbar-dark bg-white fixed-top">
+        <div class="container-fluid">
+            <div class="ml-auto mr-auto mr-sm-auto mr-lg-0 mr-md-auto">
+                <a class="navbar-brand page-scroll" href="#">
+                    <img src="{{ url('assets/img/logo_toko.svg') }}" alt="" />
+                </a>
+            </div>
+            <ul class="navbar-nav mr-auto d-none d-sm-block d-lg-block">
+                <li>
+                    <span class="text-muted"> | &nbsp; Easy manage data orders</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <div class="container">
-
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-
-            <div class=" col-md-6 col-lg-4">
-                <div class="img-logo text-center mt-5">
-                    <img src="{{ asset('assets/img/company.png') }}"
-                        style="width: 80px;">
+    <main class="login-container">
+        <div class="container">
+            <div class="row page-login d-flex align-items-center">
+                <div class="section-left col-12 col-md-6">
+                    <h1 class="mb-4">
+                        Kelola dengan mudah<br />
+                        data penjualan mu
+                    </h1>
+                    <img src="{{ url('assets/img/login_img.png') }}" alt="" class="w-75 d-none d-sm-flex" />
                 </div>
-                <div class="card o-hidden border-0 shadow-lg mb-3 mt-5">
-                    <div class="card-body p-4">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
+                <div class="section-right col-12 col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="{{ url('assets/img/logo_toko.svg') }}" class=" w-25" alt="">
                             </div>
-                        @endif
-
-                        <div class="text-center">
-                            <h1 class="h5 text-gray-900 mb-3">LOGIN ADMIN</h1>
+                            <form action="{{ route('login') }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="inputEmail">Email address</label>
+                                    <input type="email" name="email" value="{{ old('email') }}"
+                                        class="form-control @error('email') is-invalid @enderror" required
+                                        placeholder="Masukkan Alamat Email">
+                                    @error('email')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword">Password</label>
+                                    <input type="password" name="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="Masukkan Password">
+                                    @error('password')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe" />
+                                    <label for="rememberMe" class="form-check-label">Remember Me</label>
+                                </div>
+                                <button type="submit" class="btn btn-login btn-block">
+                                    Sign In
+                                </button>
+                                <p class="text-center mt-4">
+                                    <a href="/forgot-password">I forgot the password</a>
+                                </p>
+                            </form>
                         </div>
-
-                        <form action="{{ route('login') }}" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label class="font-weight-bold text-uppercase">Email address</label>
-                                <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Alamat Email">
-                                @error('email')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>    
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="font-weight-bold text-uppercase">Password</label>
-                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Password">
-                                @error('password')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>    
-                                @enderror
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block text-uppercase">Login</button>
-                            <hr>
-            
-                            <a href="/forgot-password">Lupa Password ?</a>
-            
-                        </form>
-
                     </div>
                 </div>
             </div>
-
         </div>
-
-    </div>
+    </main>
 
 @endsection

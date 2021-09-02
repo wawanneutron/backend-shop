@@ -71,3 +71,8 @@ Route::post('/rajaongkir/check-ongkir', [RajaOngkirController::class, 'checkOngk
 // routs checkout (midtrans)
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::post('/notification-handler', [CheckoutController::class, 'notificationHandler'])->name('checkout.notificationHandler');
+
+
+// routes review / star rating
+Route::post('/review', [ReviewController::class, 'addReview'])->name('review.customer');
+Route::post('/reviewcek', [ReviewController::class, 'cekReview'])->name('review.cekReview');

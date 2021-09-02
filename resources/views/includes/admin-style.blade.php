@@ -1,4 +1,4 @@
-<link rel="shortcut icon" href="{{ asset('assets/img/company.png') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ asset('assets/img/logo_toko.svg') }}" type="image/x-icon">
 <!-- Custom fonts for this template-->
 <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 <link
@@ -73,6 +73,59 @@
         background-color: #232946;
         border-bottom: 1px solid #e3e6f0;
         color: white;
+    }
+
+    .login-container {
+        background: linear-gradient(50deg, #fff 60%, #176592 40%);
+        width: 100vw;
+        height: 100vh;
+        height: 100vh;
+
+    }
+
+
+
+    .section-left h1 {
+        color: #071c4d;
+        font-size: 40px;
+        font-weight: 600;
+    }
+
+    .section-left,
+    .section-right {
+        margin-top: 150px;
+    }
+
+    /* .section-left img {
+        width: 300px !important;
+    } */
+
+    .btn-login {
+        background-color: #232946;
+        color: #fff;
+    }
+
+    @media (max-width: 575.98px) {
+        .login-container {
+            background: linear-gradient(90deg, #fff 60%, #176592 40%);
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .section-left h1 {
+            color: #071c4d;
+            font-size: 40px;
+            font-weight: 600;
+            margin-top: -60px;
+        }
+
+        .section-right {
+            margin-top: 40px;
+        }
+    }
+
+    .forgot-pass {
+        margin-top: 100px;
     }
 
 </style>
