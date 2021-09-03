@@ -12,7 +12,16 @@ class ProductController extends Controller
 {
     public function productAll()
     {
-        $products = Product::with('gallery')->inRandomOrder()->simplePaginate(12);
+        $products = Product::with('gallery')
+            ->leftJoin('reviews', 'reviews.product_id', '=', 'products.id')
+            ->select(
+                'products.*',
+                DB::raw('avg(reviews.rating) as avg_rating'),
+                DB::raw('count(reviews.review) as total_reviews'),
+            )
+            ->groupBy('products.id')
+            ->inRandomOrder()
+            ->get();
 
         return response()->json([
             'success'   => true,
@@ -58,8 +67,8 @@ class ProductController extends Controller
                 DB::raw('count(reviews.review) as total_reviews'),
             )
             ->groupBy('products.id')
-            // ->inRandomOrder()
-            // ->take(8)
+            ->inRandomOrder()
+            ->take(8)
             ->get();
 
         return response()->json([
@@ -103,6 +112,13 @@ class ProductController extends Controller
     {
         $products = Product::with('gallery')
             ->where('title', 'LIKE', "%" . $keyword . "%")
+            ->leftJoin('reviews', 'reviews.product_id', '=', 'products.id')
+            ->select(
+                'products.*',
+                DB::raw('avg(reviews.rating) as avg_rating'),
+                DB::raw('count(reviews.review) as total_reviews'),
+            )
+            ->groupBy('products.id')
             ->orderBy('created_at', 'DESC')
             ->get();
 

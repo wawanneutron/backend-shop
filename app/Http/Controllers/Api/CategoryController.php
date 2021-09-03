@@ -23,6 +23,8 @@ class CategoryController extends Controller
 
     public function show($slug)
     {
+        $nameCategory = Category::where('slug', $slug)->first();
+
         $category = Product::with('gallery')
             ->where('categories.slug', $slug)
             ->select(
@@ -39,7 +41,8 @@ class CategoryController extends Controller
             return response()->json([
                 'success'   => true,
                 'message'   => 'List Product By Category ',
-                'product'   => $category
+                'product'   => $category,
+                'category'  => $nameCategory,
 
             ], 200);
         } else {
