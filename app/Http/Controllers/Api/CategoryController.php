@@ -23,7 +23,7 @@ class CategoryController extends Controller
 
     public function show($slug)
     {
-        $nameCategory = Category::where('slug', $slug)->first();
+        $categoryName = Category::where('slug', $slug)->first();
 
         $category = Product::with('gallery')
             ->where('categories.slug', $slug)
@@ -33,7 +33,7 @@ class CategoryController extends Controller
                 DB::raw('count(reviews.review) as total_reviews'),
             )
             ->join('categories', 'categories.id', '=', 'products.category_id')
-            ->join('reviews', 'reviews.product_id', '=', 'products.id')
+            ->leftjoin('reviews', 'reviews.product_id', '=', 'products.id')
             ->groupBy('products.id')
             ->get();
 
@@ -41,9 +41,8 @@ class CategoryController extends Controller
             return response()->json([
                 'success'   => true,
                 'message'   => 'List Product By Category ',
-                'product'   => $category,
-                'category'  => $nameCategory,
-
+                'category'   => $categoryName,
+                'product'   => $category
             ], 200);
         } else {
             return response()->json([
