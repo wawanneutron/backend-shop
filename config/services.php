@@ -40,5 +40,10 @@ return [
     ],
 
 
+    // rajaongkir
+    'rajaongkir' => [
+      'key' => env('RAJAONGKIR_API_KEY')
+    ]
+
 
 ];
